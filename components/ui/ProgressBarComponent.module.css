@@ -1,0 +1,7 @@
+.progressBar {
+    background-color: var(--color-grey-2);
+}
+
+.progressBar div {
+    background-color: var(--color-tomato-2);
+}

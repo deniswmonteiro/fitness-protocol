@@ -1,0 +1,18 @@
+.notification {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    margin-bottom: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    height: 3.5rem;
+    color: var(--color-white);
+}
+  
+.success {
+    background-color: var(--color-green-2);
+}
+  
+.error {
+    background-color: var(--color-red-2);
+}

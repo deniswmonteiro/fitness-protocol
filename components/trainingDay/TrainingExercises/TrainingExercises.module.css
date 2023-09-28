@@ -1,0 +1,76 @@
+.exerciseGroupingBadge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-transform: uppercase;
+    font-weight: 400;
+    background-color: var(--color-tomato-3) !important;
+    padding: .5rem;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.carouselBg {
+    width: 100%;
+    height: 29rem;
+    background-color: var(--color-blue-2);
+    border-radius: .375rem;
+}
+
+.carouselContent {
+    padding: 1.5rem 1rem 1rem 1rem;
+    text-align: left;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.exerciseContent {
+    display: flex;
+    flex-direction: column;
+    min-height: 25rem;
+}
+
+.carouselContent h2 {
+    margin-bottom: 1.5rem;
+}
+
+.exerciseInfo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem;
+    background: var(--color-black-2);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+}
+
+.exerciseInfo p {
+    margin-bottom: 0;
+}
+
+.exerciseInfo span {
+    font-weight: 700;
+    color: var(--color-tomato-2);
+}
+
+.exerciseDetails p:first-of-type {
+    margin-bottom: 1rem;
+    font-size: 1rem !important;
+}
+
+.exerciseDetails p:last-of-type {
+    font-size: .875rem;
+}
+
+.exerciseDetails span {
+    margin-top: 1rem;
+    font-size: .875rem;
+    font-weight: 700;
+    color: var(--color-grey-2);
+    text-transform: uppercase;
+    display: block;
+}

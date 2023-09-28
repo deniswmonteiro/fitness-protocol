@@ -1,0 +1,11 @@
+.timerModal h2 {
+    margin-bottom: 1rem;
+}
+
+.timerModalContent {
+    margin-bottom: 1rem;
+}
+
+.timerModalContent span {
+    color: var(--color-tomato-3);
+}
