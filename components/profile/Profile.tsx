@@ -87,7 +87,7 @@ const Profile = ({ user }: { user: IUserData | null }) => {
     else {
         return (
             <>
-                <Header backNavigation={true} href="/" />
+                <Header backNavigation={true} pathname="/" />
 
                 <section className={`container animeLeft ${styles.profile}`}>
                     <h1 className="title-2">Editar dados de perfil:</h1>

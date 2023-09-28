@@ -1,18 +1,25 @@
 import React from "react";
 import Link from "next/link";
 import { Card, Spinner } from "react-bootstrap";
-import ArrowRightIcon from "../../icons/arrow-right-icon";
-import styles from "./TrainingWeekCard.module.css";
+import ArrowRightIcon from "@/components/icons/arrow-right-icon";
+import styles from "./TrainingPlanCard.module.css";
 
-const TrainingWeekCard = ({ week }: { week: string }) => {
+const TrainingPlanCard = ({ plan }: { plan: string }) => {
+    const [planSlug, setPlanSlug] = React.useState("");
     const [loading, setLoading] = React.useState(false);
+
+    React.useEffect(() => {
+        setPlanSlug(plan.replace(" ", "-").toLowerCase());
+    }, [plan]);
 
     return (
         <div className={styles.trainingWeekCard}>
-            <Link href={`/treino/${week.replace(" ", "-").toLowerCase()}`} onClick={() => setLoading(true)}>
+            <Link href={{ pathname: 'treino', query: { plan: planSlug } }} onClick={() => setLoading(true)}>
                 <Card className={styles.cardBgBlue}>
                     <Card.Body className={styles.cardBgBlueContent}>
-                        <p>{week.split(" ")[0]} <span>{week.split(" ")[1]}</span></p>
+                        <p>
+                            <span>{plan.split(" ")[0]}</span> {plan.split(" ")[1]}
+                        </p>
 
                         {loading ? 
                             (
@@ -29,4 +36,4 @@ const TrainingWeekCard = ({ week }: { week: string }) => {
     )
 }
 
-export default TrainingWeekCard
+export default TrainingPlanCard

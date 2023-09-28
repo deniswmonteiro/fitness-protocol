@@ -6,10 +6,13 @@ import styles from "./Header.module.css";
 
 type IHeader = {
     backNavigation?: boolean,
-    href?: string,
+    pathname?: string,
+    query?: {
+        [key: string]: string
+    }
 }
 
-const Header = ({ backNavigation, href }: IHeader) => {
+const Header = ({ backNavigation, pathname, query }: IHeader) => {
     const [loading, setLoading] = React.useState(false);
 
     return (
@@ -20,7 +23,7 @@ const Header = ({ backNavigation, href }: IHeader) => {
                         <Spinner animation="border" size="sm"
                             className={styles.loading} />
                     ) : (
-                        <Link href={{ pathname: href }}
+                        <Link href={{ pathname, query }}
                             onClick={() => setLoading(true)}>
                             <ArrowLeftIcon />
                         </Link>

@@ -1,17 +1,12 @@
-.training {
+.plan {
     padding: 3rem 1rem;
 }
 
-.training h1 {
+.plan h1 {
     margin-bottom: 2rem;
     text-transform: capitalize;
 }
 
-.training h1 span {
+.plan h1 span {
     color: var(--color-tomato-3);
-}
-
-.training h2 {
-    margin-bottom: 2rem;
-    text-transform: capitalize;
 }

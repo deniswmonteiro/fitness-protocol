@@ -2,14 +2,14 @@ import React from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Header from "../layout/Header";
-import TrainingDayCard from "./TrainingDayCard/TrainingDayCard";
-import styles from "./Training.module.css";
+import TrainingWeekCard from "./TrainingWeekCard/TrainingWeekCard";
+import styles from "./Plan.module.css";
 
-const trainingDays = [
-    "Segunda", "Terca", "Quarta", "Quinta", "Sexta"
+const trainingWeeks = [
+    "Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8", "Semana 9", "Semana 10", "Semana 11", "Semana 12", 
 ];
 
-const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId: string }) => {
+const Plan = ({ plan, planId }: { plan: boolean, planId: string }) => {
     const { data: session } = useSession();
     const router = useRouter();
 
@@ -28,13 +28,13 @@ const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId:
     }, [router, session]);
 
     if (session !== null) {
-        if (!week) {
+        if (!plan) {
             return (
                 <>
                     <Header backNavigation={true} pathname="/" />
 
-                    <section className={`container animeLeft ${styles.training}`}>
-                        <p>Não há treinos para essa semana.</p>
+                    <section className={`container animeLeft ${styles.plan}`}>
+                        <p>Plano de treino não encontrado.</p>
                     </section>
                 </>
             )
@@ -43,19 +43,15 @@ const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId:
         else {
             return (
                 <>
-                    <Header backNavigation={true} pathname={`/treino`} query={{ plan: plan }} />
+                    <Header backNavigation={true} pathname="/" />
 
-                    <section className={`container animeLeft ${styles.training}`}>
+                    <section className={`container animeLeft ${styles.plan}`}>
                         <h1 className="title-1">
-                            <span>{plan.split("-")[0]}</span> {plan.split("-")[1]}
+                            <span>{planId.split("-")[0]}</span> {planId.split("-")[1]}
                         </h1>
-
-                        <h2 className="title-2">
-                            {weekId.replace("-", " ")}
-                        </h2>
                     
-                        {trainingDays.map((day) => (
-                            <TrainingDayCard key={day} week={weekId} day={day} />
+                        {trainingWeeks.map((week) => (
+                            <TrainingWeekCard key={week} plan={planId} week={week} />
                         ))}
                     </section>
                 </>
@@ -66,4 +62,4 @@ const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId:
     else return null;
 }
 
-export default Training
+export default Plan

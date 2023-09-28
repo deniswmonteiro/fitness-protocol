@@ -43,7 +43,7 @@ const Login = () => {
 
     return (
         <>
-            <Header backNavigation={true} href="/" />
+            <Header backNavigation={true} pathname="/" />
 
             <section className={`container animeLeft ${styles.login}`}>
                 <h1 className="title-2">Entre com seu e-mail e senha:</h1>

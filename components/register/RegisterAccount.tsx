@@ -81,7 +81,7 @@ const RegisterAccount = () => {
 
     return (
         <>
-            <Header backNavigation={true} href="/cadastro/dados-perfil" />
+            <Header backNavigation={true} pathname="/cadastro/dados-perfil" />
 
             <section className={`container animeLeft ${styles.registerAccount}`}>
                 <ProgressBarComponent now={fillProgressBar} />

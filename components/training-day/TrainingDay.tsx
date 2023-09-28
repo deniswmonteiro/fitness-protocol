@@ -82,7 +82,7 @@ const TrainingDay = ({ hasError, training}: { hasError: boolean, training: IData
         if (hasError) {
             return (
                 <>
-                    <Header backNavigation={true} href={`/treino/${week}`} />
+                    <Header backNavigation={true} pathname={`/treino/${week}`} />
                     
                     <section className={`container animeLeft ${styles.trainingDay}`}>
                         <p>Não há treino para essa dia.</p>
@@ -94,7 +94,7 @@ const TrainingDay = ({ hasError, training}: { hasError: boolean, training: IData
         else {
             if (!trainingData) return (
                 <>
-                    <Header backNavigation={true} href={`/treino/${week}`} />
+                    <Header backNavigation={true} pathname={`/treino/${week}`} />
                 
                     <section className={`container animeLeft ${styles.trainingDayLoading}`}>
                         <h1 className="title-1">
@@ -108,7 +108,7 @@ const TrainingDay = ({ hasError, training}: { hasError: boolean, training: IData
             else {
                 return (
                     <>
-                        <Header backNavigation={true} href={`/treino/${week}`} />
+                        <Header backNavigation={true} pathname={`/treino/${week}`} />
 
                         <section className={`container animeLeft ${styles.trainingDay}`}>
                             <TrainingExercises training={trainingData} />

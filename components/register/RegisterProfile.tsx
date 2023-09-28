@@ -29,7 +29,7 @@ const RegisterProfile = () => {
     
     return (
         <>
-            <Header backNavigation={true} href="/" />
+            <Header backNavigation={true} pathname="/" />
 
             <section className={`container animeLeft ${styles.registerProfile}`}>
                 <ProgressBarComponent now={fillProgressBar} />

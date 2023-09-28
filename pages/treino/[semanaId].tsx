@@ -9,16 +9,19 @@ const trainingWeeks = [
 const TrainingPage = () => {
     const [week, setWeek] = React.useState(false);
     const router = useRouter();
+    const plan = router.query.plan as string;
     const weekId = router.query.semanaId as string;
 
     React.useEffect(() => {
+        window.history.replaceState(null, "", `/treino/${weekId}`);
+
         trainingWeeks.find((weekDay) => {
             if (weekDay.replace(" ", "-").toLowerCase() === weekId) setWeek(true);
         });
-    });
+    }, [weekId]);
 
     return (
-        <Training week={week} weekId={weekId} />
+        <Training plan={plan} week={week} weekId={weekId} />
     )
 }
 

@@ -1,40 +1,27 @@
-import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
+import React from "react";
+import { useRouter } from "next/router";
+import Plan from "@/components/plan/Plan";
 
-type ISession = {
-    user: {
-        name: string,
-        email: string,
-        image: string | null
-    },
-    expires: string
-}
+const trainingPlans = [
+    "Mass Protocol"
+]
 
 const TrainingPage = () => {
-    return null;
-}
+    const [plan, setPlan] = React.useState(false);
+    const router = useRouter();
+    const planId = router.query.plan as string;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    let session: ISession | null = await getServerSession(context.req, context.res, authOptions);
+    React.useEffect(() => {
+        window.history.replaceState(null, "", `/treino`);
+        
+        trainingPlans.find((planName) => {
+            if (planName.replace(" ", "-").toLowerCase() === planId) setPlan(true);
+        });
+    }, [planId]);
 
-    if (session === null) {
-        return {
-            redirect: {
-                destination: "/login",
-                permanent: false
-            }
-        }
-    }
-
-    else {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false
-            }
-        }
-    }
+    return (
+        <Plan plan={plan} planId={planId} />
+    );
 }
 
 export default TrainingPage
