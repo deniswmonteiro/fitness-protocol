@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/helpers/db-util";
 import { WithId } from "mongodb";
-import { validate } from "@/helpers/form-validate";
 import { getDayName } from "@/helpers/calendar-util";
 
 type ResponseData = {

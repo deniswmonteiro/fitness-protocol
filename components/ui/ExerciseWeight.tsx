@@ -1,5 +1,5 @@
 import React from "react";
-import ExerciseWeightModal from "../trainingDay/TrainingExercises/ExerciseWeightModal/ExerciseWeightModal";
+import ExerciseWeightModal from "../training-day/TrainingExercises/ExerciseWeightModal/ExerciseWeightModal";
 import styles from "./ExerciseWeight.module.css";
 
 const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: number, weight: number }) => {
