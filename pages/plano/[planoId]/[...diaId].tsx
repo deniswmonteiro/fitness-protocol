@@ -13,7 +13,7 @@ type IData = {
 }
 
 type IExercisesData = {
-    exerciseId: number,
+    exerciseId: string,
     name: string,
     series: number,
     "reps-1": number,
@@ -56,72 +56,79 @@ const DayPage = ({ hasPlanError, hasWeekError, hasDayError, trainingData}: IDayP
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    const contextParams = context.params as {
-        planoId: string,
-        diaId: string[]
-    }
+    const plan = context.params?.planoId as string;
+    const week = context.params?.diaId?.[0] as string;
+    const day = context.params?.diaId?.[1];
 
-    const plan = contextParams.planoId;
-    const week = contextParams.diaId[0];
-    const day = contextParams.diaId[1];
+    if (plan && week && day) {
+        const planName = plan.split("-").map((planNameItem) => {
+            return (planNameItem.substring(0, 1).toUpperCase() + planNameItem.substring(1))
+        }).join(" ");
 
-    const planName = plan.split("-").map((planNameItem) => {
-        return (planNameItem.substring(0, 1).toUpperCase() + planNameItem.substring(1))
-    }).join(" ");
+        const weekName = week.split("-").map((weekNameItem) => {
+            return (weekNameItem.substring(0, 1).toUpperCase() + weekNameItem.substring(1))
+        }).join(" ");
 
-    const weekName = week.split("-").map((weekNameItem) => {
-        return (weekNameItem.substring(0, 1).toUpperCase() + weekNameItem.substring(1))
-    }).join(" ");
+        const dayName = day.substring(0, 1).toUpperCase() + day.substring(1)
 
-    const dayName = day.substring(0, 1).toUpperCase() + day.substring(1)
+        const planExists = trainingPlans.find((trainingPlan) => planName === trainingPlan);
+        const weekExists = trainingWeeks.find((trainingWeek) => weekName === trainingWeek);
+        const dayExists = trainingDays.find((trainingDay) => dayName === trainingDay);
 
-    const planExists = trainingPlans.find((trainingPlan) => planName === trainingPlan);
-    const weekExists = trainingWeeks.find((trainingWeek) => weekName === trainingWeek);
-    const dayExists = trainingDays.find((trainingDay) => dayName === trainingDay);
+        if (!planExists) {
+            return {
+                props: {
+                    hasPlanError: true,
+                    hasWeekError: false,
+                    hasDayError: false,
+                }
+            }
+        }
 
-    if (!planExists) {
-        return {
-            props: {
-                hasPlanError: true,
-                hasWeekError: false,
-                hasDayError: false,
+        else if (!weekExists) {
+            return {
+                props: {
+                    hasPlanError: false,
+                    hasWeekError: true,
+                    hasDayError: false,
+                }
+            }
+        }
+
+        else if (!dayExists) {
+            return {
+                props: {
+                    hasPlanError: false,
+                    hasWeekError: false,
+                    hasDayError: true,
+                }
+            }
+        }
+
+        else {
+            const response = await fetch(`${process.env.NEXTAUTH_URL}/api/training/?plan=${plan}&week=${week}&day=${day}`);
+            const result = await response.json() as IResult;
+            const trainingData = result.data;
+
+            return {
+                props: {
+                    hasPlanError: false,
+                    hasWeekError: false,
+                    hasDayError: false,
+                    trainingData
+                },
+                revalidate: 10
             }
         }
     }
 
-    else if (!weekExists) {
-        return {
-            props: {
-                hasPlanError: false,
-                hasWeekError: true,
-                hasDayError: false,
-            }
-        }
-    }
-
-    else if (!dayExists) {
+    else {
         return {
             props: {
                 hasPlanError: false,
                 hasWeekError: false,
                 hasDayError: true,
             }
-        }
-    }
-
-    else {
-        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/training/?plan=${plan}&week=${week}&day=${day}`);
-        const result = await response.json() as IResult;
-        const trainingData = result.data;
-
-        return {
-            props: {
-                hasPlanError: false,
-                hasWeekError: false,
-                hasDayError: false,
-                trainingData
-            },
-            revalidate: 10
         }
     }
 }
@@ -133,8 +140,8 @@ export async function getStaticPaths() {
         for (let j = 0; j < trainingDays.length; j++) {
             paths.push({
                 params: {
-                    planoId: trainingPlans[i],
-                    diaId: [trainingDays[j]]
+                    planoId: trainingPlans[i].replace(" ", "-").toLowerCase(),
+                    diaId: [trainingDays[j].toLowerCase()]
                 }
             });
         }

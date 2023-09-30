@@ -3,7 +3,7 @@ import ExerciseTimerIndicator from "./ExerciseTimerIndicator";
 import styles from "./ExerciseSeriesTimer.module.css";
 
 type IExerciseSeriesTimer = {
-    id: number,
+    id: string,
     pause: number,
     series: number
 }

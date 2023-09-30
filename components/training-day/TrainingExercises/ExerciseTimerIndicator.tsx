@@ -8,7 +8,7 @@ import PlayIcon from "@/components/icons/play-icon";
 import styles from "./ExerciseTimerIndicator.module.css";
 
 type IExerciseTimerIndicator = {
-    id: number,
+    id: string,
     pause: number,
     serieListDone: ISeriesList[],
     setSerieListDone: React.Dispatch<React.SetStateAction<ISeriesList[]>>

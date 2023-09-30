@@ -6,7 +6,7 @@ import InputComponent from "@/components/forms/InputComponent";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
 type IExerciseWeightModal = {
-    exerciseId: number,
+    exerciseId: string,
     exerciseWeight: string,
     setExerciseWeight: React.Dispatch<React.SetStateAction<string>>,
     showExerciseWeightModal: boolean,

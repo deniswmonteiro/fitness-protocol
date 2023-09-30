@@ -11,7 +11,7 @@ type IData = {
 }
 
 type IExercisesData = {
-    exerciseId: number,
+    exerciseId: string,
     name: string,
     series: number,
     "reps-1": number,

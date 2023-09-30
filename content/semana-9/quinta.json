@@ -1,6 +1,6 @@
 {
     "exercise-1": {
-        "exerciseId" : 941,
+        "exerciseId" : "mp-941",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Pulley frente",
@@ -19,7 +19,7 @@
         "weight" : 0
     },
     "exercise-2": {
-        "exerciseId" : 942,
+        "exerciseId" : "mp-942",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Pulley frente supinado",
@@ -38,7 +38,7 @@
         "weight" : 0
     },
     "exercise-3": {
-        "exerciseId" : 943,
+        "exerciseId" : "mp-943",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Remada unilateral",
@@ -57,7 +57,7 @@
         "weight" : 0
     },
     "exercise-4": {
-        "exerciseId" : 944,
+        "exerciseId" : "mp-944",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Remada pronada aberta",
@@ -76,7 +76,7 @@
         "weight" : 0
     },
     "exercise-5": {
-        "exerciseId" : 945,
+        "exerciseId" : "mp-945",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Crucifixo inverso",
@@ -95,7 +95,7 @@
         "weight" : 0
     },
     "exercise-6": {
-        "exerciseId" : 946,
+        "exerciseId" : "mp-946",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Rosca scott",
@@ -114,7 +114,7 @@
         "weight" : 0
     },
     "exercise-7": {
-        "exerciseId" : 947,
+        "exerciseId" : "mp-947",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Rosca simultânea",
@@ -133,7 +133,7 @@
         "weight" : 0
     },
     "exercise-8": {
-        "exerciseId" : 948,
+        "exerciseId" : "mp-948",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Rosca martelo",
@@ -152,7 +152,7 @@
         "weight" : 0
     },
     "exercise-9": {
-        "exerciseId" : 949,
+        "exerciseId" : "mp-949",
         "week" : "Semana 9",
         "day" : "Quinta",
         "name" : "Manguito rotador externo",

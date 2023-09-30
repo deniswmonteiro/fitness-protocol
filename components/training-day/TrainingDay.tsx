@@ -20,7 +20,7 @@ type IData = {
 }
 
 type IExercisesData = {
-    exerciseId: number,
+    exerciseId: string,
     name: string,
     series: number,
     "reps-1": number,
@@ -47,7 +47,7 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
             const response = await fetch(`/api/exercises/?email=${session.user.email}`);
             const result = await response.json() as {
                 exercisesData: {
-                    exerciseId: number,
+                    exerciseId: string,
                     weight: number
                 }[]
             };

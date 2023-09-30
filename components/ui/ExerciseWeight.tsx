@@ -2,7 +2,7 @@ import React from "react";
 import ExerciseWeightModal from "../training-day/TrainingExercises/ExerciseWeightModal/ExerciseWeightModal";
 import styles from "./ExerciseWeight.module.css";
 
-const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: number, weight: number }) => {
+const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: string, weight: number }) => {
     const [exerciseWeight, setExerciseWeight] = React.useState(() => {
         return weight !== 0 ? weight.toString().replace(".", ",") : "";
     });

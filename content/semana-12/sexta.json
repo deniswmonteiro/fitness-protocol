@@ -1,6 +1,6 @@
 {
     "exercise-1": {
-        "exerciseId" : 1251,
+        "exerciseId" : "mp-1251",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Supino máquina",
@@ -11,15 +11,18 @@
         "c-speed" : 1, 
         "e-speed" : 1, 
         "technique-1" : "Cluster",
+        "description-1" : "null",
         "technique-2" : "null",
+        "description-2" : "null",
         "technique-3" : "null",
+        "description-3" : "null",
         "technique-4" : "null",
-        "description" : "null",
+        "description-4" : "null",
         "is-grouping" : false,
         "weight" : 0
     },
     "exercise-2": {
-        "exerciseId" : 1252,
+        "exerciseId" : "mp-1252",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Crucifixo reto",
@@ -38,7 +41,7 @@
         "weight" : 0
     },
     "exercise-3": {
-        "exerciseId" : 1253,
+        "exerciseId" : "mp-1253",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Supino reto",
@@ -57,7 +60,7 @@
         "weight" : 0
     },
     "exercise-4": {
-        "exerciseId" : 1254,
+        "exerciseId" : "mp-1254",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Crucifixo inverso máquina",
@@ -76,7 +79,7 @@
         "weight" : 0
     },
     "exercise-5": {
-        "exerciseId" : 1255,
+        "exerciseId" : "mp-1255",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Crossover",
@@ -95,7 +98,7 @@
         "weight" : 0
     },
     "exercise-6": {
-        "exerciseId" : 1256,
+        "exerciseId" : "mp-1256",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Flexão de braço",
@@ -114,7 +117,7 @@
         "weight" : 0
     },
     "exercise-7": {
-        "exerciseId" : 1257,
+        "exerciseId" : "mp-1257",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Elevação lateral",
@@ -133,7 +136,7 @@
         "weight" : 0
     },
     "exercise-8": {
-        "exerciseId" : 1258,
+        "exerciseId" : "mp-1258",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Tríceps testa",
@@ -152,7 +155,7 @@
         "weight" : 0
     },
     "exercise-9": {
-        "exerciseId" : 1259,
+        "exerciseId" : "mp-1259",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Tríceps pulley",
@@ -171,7 +174,7 @@
         "weight" : 0
     },
     "exercise-10": {
-        "exerciseId" : 12510,
+        "exerciseId" : "mp-12510",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Tríceps pulley corda",
@@ -190,7 +193,7 @@
         "weight" : 0
     },
     "exercise-11": {
-        "exerciseId" : 12511,
+        "exerciseId" : "mp-12511",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Tríceps pulley corda fechado",
@@ -209,7 +212,7 @@
         "weight" : 0
     },
     "exercise-12": {
-        "exerciseId" : 12512,
+        "exerciseId" : "mp-12512",
         "week" : "Semana 12",
         "day" : "Sexta",
         "name" : "Abs ajoelhado",
