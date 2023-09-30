@@ -5,11 +5,18 @@ import Header from "../layout/Header";
 import TrainingDayCard from "./TrainingDayCard/TrainingDayCard";
 import styles from "./Training.module.css";
 
+type ITraining = {
+    plan: boolean,
+    planId: string,
+    week: boolean,
+    weekId: string
+}
+
 const trainingDays = [
     "Segunda", "Terca", "Quarta", "Quinta", "Sexta"
 ];
 
-const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId: string }) => {
+const Training = ({ plan, planId, week, weekId }: ITraining) => {
     const { data: session } = useSession();
     const router = useRouter();
 
@@ -28,10 +35,22 @@ const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId:
     }, [router, session]);
 
     if (session !== null) {
-        if (!week) {
+        if (!plan) {
             return (
                 <>
                     <Header backNavigation={true} pathname="/" />
+
+                    <section className={`container animeLeft ${styles.training}`}>
+                        <p>Plano de treino não encontrado.</p>
+                    </section>
+                </>
+            )
+        }
+
+        else if (!week) {
+            return (
+                <>
+                    <Header backNavigation={true} pathname={`/plano/${planId}`} />
 
                     <section className={`container animeLeft ${styles.training}`}>
                         <p>Não há treinos para essa semana.</p>
@@ -43,11 +62,11 @@ const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId:
         else {
             return (
                 <>
-                    <Header backNavigation={true} pathname={`/treino`} query={{ plan: plan }} />
+                    <Header backNavigation={true} pathname={`/plano/${planId}`} />
 
                     <section className={`container animeLeft ${styles.training}`}>
                         <h1 className="title-1">
-                            <span>{plan.split("-")[0]}</span> {plan.split("-")[1]}
+                            <span>{planId.split("-")[0]}</span> {planId.split("-")[1]}
                         </h1>
 
                         <h2 className="title-2">
@@ -55,7 +74,7 @@ const Training = ({ plan, week, weekId }: { plan: string, week: boolean, weekId:
                         </h2>
                     
                         {trainingDays.map((day) => (
-                            <TrainingDayCard key={day} week={weekId} day={day} />
+                            <TrainingDayCard key={day} plan={planId} week={weekId} day={day} />
                         ))}
                     </section>
                 </>

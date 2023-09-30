@@ -4,15 +4,18 @@ import { Card, Spinner } from "react-bootstrap";
 import PlayIcon from "@/components/icons/play-icon";
 import styles from "./TrainingDayCard.module.css";
 
-const TrainingDayCard = ({ day, week }: { day: string, week: string }) => {
+const TrainingDayCard = ({ plan, week, day }: { plan: string, week: string, day: string }) => {
     const [loading, setLoading] = React.useState(false);
 
     return (
         <div className={styles.trainingDayCard}>
-            <Link href={`/treino/${week}/${day.toLowerCase()}`} onClick={() => setLoading(true)}>
+            <Link href={`/plano/${plan}/${week}/${day.toLowerCase()}`}
+                onClick={() => setLoading(true)}>
                 <Card className={styles.cardBgBlue}>
                     <Card.Body className={styles.cardBgBlueContent}>
-                        <p>Treino de <span>{day === "Terca" ? "Terça" : day}</span></p>
+                        <p>
+                            Treino de <span>{day === "Terca" ? "Terça" : day}</span>
+                        </p>
 
                         {loading ? 
                             (

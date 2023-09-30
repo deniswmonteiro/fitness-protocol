@@ -14,8 +14,7 @@ const TrainingWeekCard = ({ plan, week }: { plan: string, week: string }) => {
 
     return (
         <div className={styles.trainingWeekCard}>
-            <Link href={{ pathname: `/treino/${weekSlug}`, query: { plan } }}
-                onClick={() => setLoading(true)}>
+            <Link href={`/plano/${plan}/${weekSlug}`} onClick={() => setLoading(true)}>
                 <Card className={styles.cardBgBlue}>
                     <Card.Body className={styles.cardBgBlueContent}>
                         <p>{week.split(" ")[0]} <span>{week.split(" ")[1]}</span></p>

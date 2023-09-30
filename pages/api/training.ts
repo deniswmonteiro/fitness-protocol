@@ -48,6 +48,7 @@ type ITraining = WithId<Document>[] & [IExercisesData]
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
+        const plan = req.query.plan as string;
         const week = req.query.week as string;
         const day = req.query.day as string;
 
@@ -58,7 +59,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             const exerciseWeek = (week.substring(0, 1).toUpperCase() + week.substring(1)).replace("-", " ");
             const exerciseDay = getDayName(day);
 
-            const training = await db.collection("training").find({
+            // VERIFICAR SE EXISTE PLANO, SEMANA E DIA DE TREINO
+
+            const training = await db.collection(`${plan}`).find({
                 $and: [
                     { week: exerciseWeek },
                     { day: exerciseDay }
@@ -93,7 +96,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
         catch (error) {
             res.status(500).json({
-                message: "Dia de treino não encontrado.",
+                message: "Erro de conexão com o banco de dados.",
                 data: null
             });
         }

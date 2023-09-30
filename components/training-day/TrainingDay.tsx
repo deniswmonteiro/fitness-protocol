@@ -6,6 +6,13 @@ import TrainingExercises from "./TrainingExercises/TrainingExercises";
 import { Spinner } from "react-bootstrap";
 import styles from "./TrainingDay.module.css";
 
+type ITrainingDay = {
+    hasPlanError: boolean,
+    hasWeekError: boolean,
+    hasDayError: boolean,
+    training: IData
+}
+
 type IData = {
     id: number,
     title: string,
@@ -27,8 +34,9 @@ type IExercisesData = {
     description: string
 }
 
-const TrainingDay = ({ hasError, training}: { hasError: boolean, training: IData }) => {
+const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrainingDay) => {
     const [trainingData, setTrainingData] = React.useState<IData | null>(null);
+    const [plan, setPlan] = React.useState("");
     const [week, setWeek] = React.useState("");
     const { data: session } = useSession();
     const router = useRouter();
@@ -72,43 +80,70 @@ const TrainingDay = ({ hasError, training}: { hasError: boolean, training: IData
         if (session === null) handleLogout();
 
         else {
-            if (router.query.dia) setWeek(router.query.dia[0]);
-
+            if (router.query.diaId) setWeek(router.query.diaId[0]);
+            
+            setPlan(router.query.planoId as string);
             handleExerciseWeight();
         }
-    }, [router, router.query.dia, session, training, handleExerciseWeight]);
+    }, [router, session, handleExerciseWeight]);
 
     if (session !== null) {
-        if (hasError) {
+        if (hasPlanError) {
             return (
                 <>
-                    <Header backNavigation={true} pathname={`/treino/${week}`} />
+                    <Header backNavigation={true} pathname="/" />
                     
                     <section className={`container animeLeft ${styles.trainingDay}`}>
-                        <p>Não há treino para essa dia.</p>
+                        <p>Plano de treino não encontrado.</p>
+                    </section>
+                </>
+            )
+        }
+
+        else if (hasWeekError) {
+            return (
+                <>
+                    <Header backNavigation={true} pathname={`/plano/${plan}`} />
+                    
+                    <section className={`container animeLeft ${styles.trainingDay}`}>
+                        <p>Semana de treino não encontrada.</p>
+                    </section>
+                </>
+            )
+        }
+
+        else if (hasDayError) {
+            return (
+                <>
+                    <Header backNavigation={true} pathname={`/plano/${plan}/${week}`} />
+                    
+                    <section className={`container animeLeft ${styles.trainingDay}`}>
+                        <p>Dia de treino não encontrado.</p>
                     </section>
                 </>
             )
         }
 
         else {
-            if (!trainingData) return (
-                <>
-                    <Header backNavigation={true} pathname={`/treino/${week}`} />
-                
-                    <section className={`container animeLeft ${styles.trainingDayLoading}`}>
-                        <h1 className="title-1">
-                            Seu treino está sendo carregado
-                        </h1>
-                        <Spinner animation="border" className={styles.loading} />
-                    </section>
-                </>
-            )
+            if (!trainingData) {
+                return (
+                    <>
+                        <Header />
+                    
+                        <section className={`container animeLeft ${styles.trainingDayLoading}`}>
+                            <h1 className="title-1">
+                                Seu treino está sendo carregado
+                            </h1>
+                            <Spinner animation="border" className={styles.loading} />
+                        </section>
+                    </>
+                )
+            }
 
             else {
                 return (
                     <>
-                        <Header backNavigation={true} pathname={`/treino/${week}`} />
+                        <Header backNavigation={true} pathname={`/plano/${plan}/${week}`} />
 
                         <section className={`container animeLeft ${styles.trainingDay}`}>
                             <TrainingExercises training={trainingData} />
