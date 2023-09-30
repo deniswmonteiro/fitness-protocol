@@ -6,7 +6,7 @@ const RegisterAccountPage = () => {
         <>
             <Head>
                 <meta name="description" content="Crie a sua conta" />
-                <title>Fitness Protocols &bull; Cria a sua conta</title>
+                <title>Fitness Protocol &bull; Cria a sua conta</title>
             </Head>
             <RegisterAccount />
         </>

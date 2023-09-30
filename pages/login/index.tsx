@@ -9,7 +9,7 @@ const LoginPage = () => {
         <>
             <Head>
                 <meta name="description" content="Entre com seu e-mail e senha" />
-                <title>Fitness Protocols &bull; Login</title>
+                <title>Fitness Protocol &bull; Login</title>
             </Head>
             <Login />
         </>

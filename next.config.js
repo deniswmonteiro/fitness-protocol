@@ -38,7 +38,7 @@ const nextConfig = (phase) => {
                 NEXTAUTH_SECRET: "N6rmb+F34RR7AGT3EiNSBhu4/H17BRVF9XVwm4JtbAg=",
                 DB_USERNAME: "deniswmonteiro",
                 DB_PASSWORD: "woftam-corMat-1pipna",
-                DB_NAME: "fitness-protocols-db"
+                DB_NAME: "fitness-protocol-db"
             }
         }
     }
@@ -74,11 +74,11 @@ const nextConfig = (phase) => {
             },
             reactStrictMode: true,
             env: {
-                NEXTAUTH_URL: "https://fitnessprotocols.vercel.app",
+                NEXTAUTH_URL: "https://fitnessprotocol.vercel.app",
                 NEXTAUTH_SECRET: "EmvuPP8SCub18UsakDdCn9NHGzNzKB9yKgyvdx0cwz4=",
                 DB_USERNAME: "deniswmonteiro",
                 DB_PASSWORD: "woftam-corMat-1pipna",
-                DB_NAME: "fitness-protocols-db"
+                DB_NAME: "fitness-protocol-db"
             }
         }
     }

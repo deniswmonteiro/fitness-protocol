@@ -8,7 +8,7 @@ const HomeVisitor = () => {
         <section className={`container animeLeft ${styles.home}`}>
             <HomeIcon />
             
-            <h1>Fitness Protocols</h1>
+            <h1>Fitness Protocol</h1>
 
             <div className={styles.actions}>
                 <LinkComponent href="/cadastro/dados-perfil"

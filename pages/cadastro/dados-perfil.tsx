@@ -7,7 +7,7 @@ const RegisterProfilePage = () => {
         <>
             <Head>
                 <meta name="description" content="Adicionar os dados de perfil" />
-                <title>Fitness Protocols &bull; Adicionar dados de perfil</title>
+                <title>Fitness Protocol &bull; Adicionar dados de perfil</title>
             </Head>
             <RegisterProfile />
         </>

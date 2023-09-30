@@ -32,7 +32,7 @@ const Header = ({ backNavigation, pathname, query }: IHeader) => {
             )}
 
             <div className={styles.logo}>
-                Fitness Protocols
+                Fitness Protocol
             </div>
         </header>
     )
