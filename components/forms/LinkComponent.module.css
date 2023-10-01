@@ -13,7 +13,7 @@
     margin-bottom: 1.5rem;
     width: 100%;
     border-radius: .375rem;
-    padding: .5rem;
+    padding: .75rem;
 }
 
 .link.disabled {
@@ -37,17 +37,18 @@
 }
 
 .secondary {
-    background-color: var(--color-black-2);
-    border-color: var(--color-black-2);
+    color: var(--color-black-3) !important;
+    background-color: var(--color-grey-2);
+    border-color: var(--color-grey-2);
     transition: .3s;
 }
 
 .secondary:hover,
 .secondary:focus-visible,
 .secondary:active {
-    box-shadow: 0 0 0 3px var(--color-black-1), 0 0 0 4px var(--color-black-2);
-    background-color: var(--color-black-2) !important;
-    border-color: var(--color-black-2) !important;
+    box-shadow: 0 0 0 3px var(--color-grey-1), 0 0 0 4px var(--color-grey-2);
+    background-color: var(--color-grey-2) !important;
+    border-color: var(--color-grey-2) !important;
     transition: .3s;
 }
 
