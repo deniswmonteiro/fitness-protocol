@@ -37,7 +37,7 @@
 }
 
 .secondary {
-    color: var(--color-black-3) !important;
+    color: var(--color-black-4) !important;
     background-color: var(--color-grey-2);
     border-color: var(--color-grey-2);
     transition: .3s;

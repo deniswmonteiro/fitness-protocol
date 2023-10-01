@@ -17,9 +17,9 @@
 }
 
 .workoutsWeek {
-    background-color: var(--color-blue-1);
+    background-color: var(--color-black-1);
     padding: 1rem 1rem 1.5rem 1rem;
-    border: 1px solid var(--color-blue-3);
+    border: 1px solid var(--color-black-4);
     border-radius: .375rem;
 }
 
@@ -50,29 +50,6 @@
     padding: 0;
     width: 1.5rem;
     height: 1.5rem;
-}
-
-.cardBgBlue {
-    border: none;
-    background-color: var(--color-blue-1);
-    color: var(--color-white);
-}
-
-.cardBgBlueContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 1rem;
-}
-
-.cardBgBlueContent span {
-    color: var(--color-orange-2);
-    font-weight: 700;
-}
-
-.cardBgBlueContent svg, .loading {
-    opacity: .6;
 }
 
 @media (max-width: 30rem) {

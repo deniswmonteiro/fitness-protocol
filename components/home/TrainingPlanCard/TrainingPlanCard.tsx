@@ -15,8 +15,8 @@ const TrainingPlanCard = ({ plan }: { plan: string }) => {
     return (
         <div className={styles.trainingWeekCard}>
             <Link href={`/plano/${planSlug}`} onClick={() => setLoading(true)}>
-                <Card className={styles.cardBgBlue}>
-                    <Card.Body className={styles.cardBgBlueContent}>
+                <Card className={styles.card}>
+                    <Card.Body className={styles.cardContent}>
                         <p>
                             <span>{plan.split(" ")[0]}</span> {plan.split(" ")[1]}
                         </p>
