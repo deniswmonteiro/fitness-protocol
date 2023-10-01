@@ -1,38 +1,48 @@
 .label {
+    font-size: .875rem;
     margin-bottom: .3125rem;
 }
 
 .input {
+    background-color: transparent;
+    color: var(--color-white) !important;
     border-color: var(--color-grey-2);
 }
 
 .input:hover,
 .input:focus {
-    outline: none;
+    background-color: transparent;
     border-color: var(--color-grey-2);
     box-shadow: 0 0 0 3px var(--color-grey-3);
+    outline: none;
 }
 
 .valid {
+    background-color: transparent;
+    color: var(--color-white) !important;
     border-color: var(--color-green-2);
 }
 
 .valid:hover,
 .valid:focus {
-    outline: none;
+    background-color: transparent;
     border-color: var(--color-green-2);
     box-shadow: 0 0 0 3px var(--color-green-1);
+    outline: none;
 }
 
 .invalid {
+    background-color: transparent;
+    color: var(--color-white) !important;
     border-color: var(--color-red-2);
 }
 
 .invalid:hover,
 .invalid:focus {
-    outline: none;
+    background-color: transparent;
     border-color: var(--color-red-2);
     box-shadow: 0 0 0 3px var(--color-red-1);
+    outline: none;
 }
 
 .inputGroupText {

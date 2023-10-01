@@ -1,9 +1,9 @@
 .header {
     display: flex;
     align-items: center;
-    background-color: var(--color-blue-3);
+    background-color: var(--color-black-3);
     padding: 1rem;
-    box-shadow: 0 2px 2px 0 rgba(68, 68, 68, .1), 0 4px 4px 0 rgba(68, 68, 68, .2);
+    box-shadow: 0 2px 2px 0 rgba(17, 17, 17, .1), 0 4px 4px 0 rgba(17, 17, 17, .2);
 }
 
 .logo {
