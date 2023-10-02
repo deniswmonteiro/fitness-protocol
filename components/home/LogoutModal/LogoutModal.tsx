@@ -25,7 +25,9 @@ const LogoutModal = ({ showLogoutModal, handleCloseLogoutModal }: ILogoutModal) 
 
     return (
         <Modal show={showLogoutModal} onHide={handleCloseLogoutModal}
-            className={styles.modalLogout}>
+            className={styles.modalLogout}
+            backdrop="static"
+            keyboard={false}>
             <Modal.Header closeButton>
                 <Modal.Title>Sair da Conta</Modal.Title>
             </Modal.Header>

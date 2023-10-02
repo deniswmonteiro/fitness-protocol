@@ -1,10 +1,10 @@
-.cardBgBlue {
+.cardBg {
     border: none;
-    background-color: var(--color-blue-2);
+    background-color: var(--color-black-3);
     color: var(--color-white);
 }
 
-.cardBgBlueContent {
+.cardBgContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,7 +12,7 @@
     padding: 1.5rem 1rem;
 }
 
-.cardBgBlueContent svg, .loading {
+.cardBgContent svg, .loading {
     opacity: .6;
 }
 

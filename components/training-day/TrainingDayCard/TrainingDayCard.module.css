@@ -2,13 +2,14 @@
     margin-bottom: 2rem;
 }
 
-.cardBgBlue {
+.card {
     border: none;
-    background-color: var(--color-blue-2);
+    background-color: var(--color-black-3);
     color: var(--color-white);
+    box-shadow: 0 2px 2px 0 rgba(34, 34, 34, .1), 0 4px 4px 0 rgba(34, 34, 34, .2);
 }
 
-.cardBgBlueContent {
+.cardContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,11 +17,11 @@
     padding: 1.5rem 1rem;
 }
 
-.cardBgBlueContent span {
-    color: var(--color-tomato-1);
+.cardContent span {
+    color: var(--color-tomato-3);
     font-weight: 700;
 }
 
-.cardBgBlueContent svg, .loading {
+.cardContent svg, .loading {
     opacity: .6;
 }

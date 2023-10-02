@@ -68,7 +68,9 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
     }
 
     return (
-        <Modal show={showExerciseWeightModal} onHide={() => hideExerciseWeightModal(false)}>
+        <Modal show={showExerciseWeightModal} onHide={() => hideExerciseWeightModal(false)}
+            backdrop="static"
+            keyboard={false}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     {exerciseWeight === "" ? "Adicionar" : "Editar"} Carga

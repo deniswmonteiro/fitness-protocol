@@ -11,8 +11,8 @@ const TrainingDayCard = ({ plan, week, day }: { plan: string, week: string, day:
         <div className={styles.trainingDayCard}>
             <Link href={`/plano/${plan}/${week}/${day.toLowerCase()}`}
                 onClick={() => setLoading(true)}>
-                <Card className={styles.cardBgBlue}>
-                    <Card.Body className={styles.cardBgBlueContent}>
+                <Card className={styles.card}>
+                    <Card.Body className={styles.cardContent}>
                         <p>
                             Treino de <span>{day === "Terca" ? "Terça" : day}</span>
                         </p>

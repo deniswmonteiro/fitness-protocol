@@ -15,8 +15,8 @@ const TrainingWeekCard = ({ plan, week }: { plan: string, week: string }) => {
     return (
         <div className={styles.trainingWeekCard}>
             <Link href={`/plano/${plan}/${weekSlug}`} onClick={() => setLoading(true)}>
-                <Card className={styles.cardBgBlue}>
-                    <Card.Body className={styles.cardBgBlueContent}>
+                <Card className={styles.card}>
+                    <Card.Body className={styles.cardContent}>
                         <p>{week.split(" ")[0]} <span>{week.split(" ")[1]}</span></p>
 
                         {loading ? 

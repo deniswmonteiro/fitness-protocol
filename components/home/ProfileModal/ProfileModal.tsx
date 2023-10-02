@@ -31,14 +31,16 @@ const ProfileModal = ({ user, showProfileModal, handleCloseProfileModal, handleS
     }
 
     return (
-        <Modal show={showProfileModal} onHide={handleCloseProfileModal}>
+        <Modal show={showProfileModal} onHide={handleCloseProfileModal}
+            backdrop="static"
+            keyboard={false}>
             <Modal.Header closeButton>
                 <Modal.Title>Meu Perfil</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Link href="/perfil" onClick={() => setLoading(true)}>
-                    <Card className={styles.cardBgBlue}>
-                        <Card.Body className={styles.cardBgBlueContent}>
+                    <Card className={styles.cardBg}>
+                        <Card.Body className={styles.cardBgContent}>
                             <div className={styles.userInfo}>
                                 <PersonIcon />
                                 <ul>

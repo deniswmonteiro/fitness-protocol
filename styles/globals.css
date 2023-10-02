@@ -112,12 +112,17 @@ a {
 }
 
 /** Modal */
+.modal-dialog {
+    margin: 1rem !important;
+}
+
 .modal-content {
     border: none;
 }
 
 .modal-header {
-    background-color: var(--color-blue-3);
+    background-color: var(--color-black-4);
+    border: none !important;
 }
 
 .modal-header .modal-title {
@@ -133,8 +138,17 @@ a {
     transition: .3s;
 }
 
+.modal-body,
+.modal-footer {
+    background-color: var(--color-black-2) !important;
+}
+
 .modal-body p {
     margin-bottom: 0 !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--color-grey-3) !important;
 }
 
 /** Carousel */
