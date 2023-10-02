@@ -96,7 +96,6 @@ const Profile = ({ user }: { user: IUserData | null }) => {
                         {/* Name */}
                         <InputComponent label="Nome" type="text"
                             id="name"
-                            autofocus={true}
                             {...name} />
 
                         {/* Gender */}

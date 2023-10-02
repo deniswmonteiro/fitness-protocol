@@ -112,6 +112,10 @@ a {
 }
 
 /** Modal */
+.modal {
+    background-color: rgba(34, 34, 34, .7) !important;
+}
+
 .modal-dialog {
     margin: 1rem !important;
 }
