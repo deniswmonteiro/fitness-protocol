@@ -13,9 +13,7 @@ type ITimerModal = {
 
 const TimerModal = ({ pause, showTimerModal, handleCloseTimerModal }: ITimerModal) => {
     return (
-        <Modal show={showTimerModal} className={styles.timerModal}
-            backdrop="static"
-            keyboard={false}>
+        <Modal show={showTimerModal} className={styles.timerModal}>
             <Modal.Header>
                 <Modal.Title>Descanso</Modal.Title>
                 <StopwatchIcon />

@@ -1,5 +1,5 @@
 import React from "react";
-import ExerciseWeightModal from "../training-day/TrainingExercises/ExerciseWeightModal/ExerciseWeightModal";
+import ExerciseWeightModal from "./ExerciseWeightModal/ExerciseWeightModal";
 import styles from "./ExerciseWeight.module.css";
 
 const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: string, weight: number }) => {
@@ -20,7 +20,7 @@ const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: string, weight: nu
                 (
                     <button className={styles.exerciseWeightButton}
                         onClick={handleShowExerciseWeightModal}>
-                        Adicionar Carga
+                        Carga
                     </button>
                 ) : (
                     <button className={styles.exerciseWeightButton}

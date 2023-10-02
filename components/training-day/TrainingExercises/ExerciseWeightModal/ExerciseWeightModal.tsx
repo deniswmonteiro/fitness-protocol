@@ -28,7 +28,7 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
         weight.setValid(null);
     }
 
-    /** Submit form with exercise data */
+    /** Submit form with exercise weight */
     const handleExerciseWeightFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
 
@@ -68,9 +68,7 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
     }
 
     return (
-        <Modal show={showExerciseWeightModal} onHide={() => hideExerciseWeightModal(false)}
-            backdrop="static"
-            keyboard={false}>
+        <Modal show={showExerciseWeightModal} onHide={() => hideExerciseWeightModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     {exerciseWeight === "" ? "Adicionar" : "Editar"} Carga

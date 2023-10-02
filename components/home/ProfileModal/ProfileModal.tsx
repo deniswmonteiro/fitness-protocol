@@ -31,9 +31,7 @@ const ProfileModal = ({ user, showProfileModal, handleCloseProfileModal, handleS
     }
 
     return (
-        <Modal show={showProfileModal} onHide={handleCloseProfileModal}
-            backdrop="static"
-            keyboard={false}>
+        <Modal show={showProfileModal} onHide={handleCloseProfileModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Meu Perfil</Modal.Title>
             </Modal.Header>

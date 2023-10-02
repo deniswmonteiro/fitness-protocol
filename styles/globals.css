@@ -7,7 +7,7 @@
 
 body {
     --font-first: Asap, Helvetica, Arial, sans-serif;
-    --font-second: Boogaloo, cursive;
+    --font-second: Boogaloo, Helvetica, Arial, sans-serif;
     --color-blue-1: #37c;
     --color-blue-2: #25a;
     --color-blue-3: #149;
@@ -31,6 +31,10 @@ body {
     margin: 0;
     color: var(--color-white) !important;
     font-family: var(--font-first) !important;
+}
+
+body.modal-open {
+    pointer-events: none !important;
 }
 
 h1,

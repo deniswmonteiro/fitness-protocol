@@ -1,8 +1,9 @@
 import React from "react";
 import { Badge, Carousel } from "react-bootstrap";
 import ExerciseSeriesTimer from "./ExerciseSeriesTimer";
-import ExerciseWeight from "@/components/ui/ExerciseWeight";
+import ExerciseWeight from "./ExerciseWeight";
 import styles from "./TrainingExercises.module.css";
+import Notes from "./Notes";
 
 type IData = {
     id: number,
@@ -108,7 +109,10 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                 </div>
                             </div>
 
-                            <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
+                            <div className={styles.exerciseFooter}>
+                                <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
+                                <Notes exerciseId={exercise[1].exerciseId} />
+                            </div>
                         </Carousel.Caption>
                     </Carousel.Item>
                 ))}

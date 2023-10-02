@@ -65,6 +65,12 @@ const types: ITypes = {
             message: "Digite uma Carga válida."
         }
     },
+    exerciseNotes: {
+        length: {
+            min: 2,
+            message: "Mínimo de 2 caracteres.",
+        }
+    }
 };
 
 const useForm = ({ type, min = 0, initial = "" }: IUseForm) => {
