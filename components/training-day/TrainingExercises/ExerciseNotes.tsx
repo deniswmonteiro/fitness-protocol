@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Notes.module.css";
+import styles from "./ExerciseNotes.module.css";
 import ExerciseNotesModal from "./ExerciseNotesModal/ExerciseNotesModal";
 
-const Notes = ({ exerciseId }: { exerciseId: string }) => {
+const ExerciseNotes = ({ exerciseId }: { exerciseId: string }) => {
     /** Modal state */
     const [showExerciseNotesModal, setShowExerciseNotesModal] = React.useState(false);
 
@@ -25,4 +25,4 @@ const Notes = ({ exerciseId }: { exerciseId: string }) => {
     )
 }
 
-export default Notes
+export default ExerciseNotes
