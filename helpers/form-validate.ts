@@ -55,6 +55,11 @@ const types: ITypes = {
             regex: /^(([\d]{1,3})(\,([\d]{1,2}))?)$/,
         }
     },
+    exerciseNotes: {
+        length: {
+            min: 2,
+        }
+    }
 };
 
 /** Validate form fields */

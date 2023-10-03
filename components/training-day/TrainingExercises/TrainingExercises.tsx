@@ -82,7 +82,7 @@ const TrainingExercises = ({ training }: { training: IData }) => {
 
                             <div className={styles.exerciseFooter}>
                                 <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
-                                <ExerciseNotes exerciseId={exercise[1].exerciseId} />
+                                <ExerciseNotes exerciseId={exercise[1].exerciseId} notes={exercise[1].notes} />
                             </div>
                         </Carousel.Caption>
                     </Carousel.Item>

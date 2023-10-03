@@ -11,10 +11,14 @@ type ResponseData = {
     exercisesData?: IExercisesGetData[]
 }
 
+type IExercisesGetData = {
+    exerciseId: number,
+    weight: number
+}
+
 type IExerciseData = {
     exerciseId: number,
-    week: string,
-    day: string,
+    userId: number,
     weight: string
 }
 
@@ -38,14 +42,7 @@ type IUser = WithId<Document> & {
 type IExercisesGet = WithId<Document>[] & [{
     exerciseId: number,
     weight: number,
-    notes: string
 }]
-
-type IExercisesGetData = {
-    exerciseId: number,
-    weight: number,
-    notes: string
-}
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -69,8 +66,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                 const exercisesData = exercises.map((exercise: IExercisesGetData) => {
                     return {
                         exerciseId: exercise.exerciseId,
-                        weight: exercise.weight,
-                        notes: exercise.notes
+                        weight: exercise.weight
                     }
                 });
                 
