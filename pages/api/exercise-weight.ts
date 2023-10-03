@@ -8,7 +8,7 @@ import { authOptions } from "./auth/[...nextauth]";
 type ResponseData = {
     message?: string,
     weight?: string | null,
-    exercisesData?: IExercisesGetData[]
+    exerciseWeightData?: IExercisesGetData[]
 }
 
 type IExercisesGetData = {
@@ -16,13 +16,11 @@ type IExercisesGetData = {
     weight: number
 }
 
-type IExerciseData = {
-    exerciseId: number,
-    userId: number,
-    weight: string
+type IUser = WithId<Document> & {
+    id: number
 }
 
-type IExercise = WithId<Document> & IExerciseData;
+type IExercisesGet = WithId<Document>[] & [IExercisesGetData]
 
 type ISession = {
     user: {
@@ -33,14 +31,13 @@ type ISession = {
     expires: string
 }
 
-type IUser = WithId<Document> & {
-    id: number
+type IExerciseData = {
+    exerciseId: number,
+    userId: number,
+    weight: string
 }
 
-type IExercisesGet = WithId<Document>[] & [{
-    exerciseId: number,
-    weight: number,
-}]
+type IExercise = WithId<Document> & IExerciseData;
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -61,7 +58,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
             else {
                 const exercises = await db.collection("exercise-weight").find({ userId: user.id }).toArray() as IExercisesGet;
-                const exercisesData = exercises.map((exercise: IExercisesGetData) => {
+                const exerciseWeightData = exercises.map((exercise: IExercisesGetData) => {
                     return {
                         exerciseId: exercise.exerciseId,
                         weight: exercise.weight
@@ -69,7 +66,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                 });
                 
                 res.status(201).json({
-                    exercisesData
+                    exerciseWeightData
                 });
             }
         }

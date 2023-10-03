@@ -53,19 +53,39 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
     /** Get user exercise weight */
     const handleExerciseWeight = React.useCallback(async () => {
         if (session && session.user) {
-            const response = await fetch(`/api/exercise-weight/?email=${session.user.email}`);
-            const result = await response.json() as {
-                exercisesData: {
+            // Getting exercise weight to training
+            const reqExerciseWeight = await fetch(`/api/exercise-weight/?email=${session.user.email}`);
+            const resExerciseWeight = await reqExerciseWeight.json() as {
+                exerciseWeightData: {
                     exerciseId: string,
                     weight: number,
                 }[]
             };
 
+            // Getting exercise notes to training
+            const reqExerciseNotes = await fetch(`/api/exercise-notes/?email=${session.user.email}`);
+            const resExerciseNotes = await reqExerciseNotes.json() as {
+                exerciseNotesData: {
+                    exerciseId: string,
+                    notes: string,
+                }[]
+            };
+
             if (training) {
+                // Adding exercise weight to training
                 Object.entries(training.exercises).map((exercise) => {
-                    result.exercisesData.map((data) => {
+                    resExerciseWeight.exerciseWeightData.map((data) => {
                         if (exercise[1].exerciseId === data.exerciseId) {
                             exercise[1].weight = data.weight;
+                        }
+                    });
+                });
+
+                // Adding exercise notes to training
+                Object.entries(training.exercises).map((exercise) => {
+                    resExerciseNotes.exerciseNotesData.map((data) => {
+                        if (exercise[1].exerciseId === data.exerciseId) {
+                            exercise[1].notes = data.notes;
                         }
                     });
                 });
