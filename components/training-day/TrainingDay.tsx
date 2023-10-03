@@ -28,10 +28,19 @@ type IExercisesData = {
     "reps-3": number,
     "reps-4": number,
     pause: number,
-    technique: string,
+    "c-speed": number,
+    "e-speed": number,
+    "technique-1": string,
+    "description-1": string,
+    "technique-2": string,
+    "description-2": string,
+    "technique-3": string,
+    "description-3": string,
+    "technique-4": string,
+    "description-4": string,
     "is-grouping": boolean,
     weight: number,
-    description: string
+    notes: string
 }
 
 const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrainingDay) => {
@@ -48,7 +57,8 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
             const result = await response.json() as {
                 exercisesData: {
                     exerciseId: string,
-                    weight: number
+                    weight: number,
+                    notes: string
                 }[]
             };
 
@@ -57,9 +67,10 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
                     result.exercisesData.map((data) => {
                         if (exercise[1].exerciseId === data.exerciseId) {
                             exercise[1].weight = data.weight;
+                            exercise[1].notes = data.notes;
                         }
-                    })
-                })
+                    });
+                });
 
                 setTrainingData(training);
             }

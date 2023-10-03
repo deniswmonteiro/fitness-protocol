@@ -6,31 +6,15 @@ import { getDayName } from "@/helpers/calendar-util";
 type ResponseData = {
     message?: string,
     data?: IData | null,
-    weight?: string
 }
 
 type IData = {
     title: string;
-    exercises: {
-        exerciseId: number;
-        name: string;
-        series: number;
-        "reps-1": number;
-        "reps-2": number;
-        "reps-3": number;
-        "reps-4": number;
-        pause: number;
-        technique: string;
-        "is-grouping": boolean,
-        weight: number,
-        description: string
-    }[]
+    exercises: IExercisesData[]
 }
 
 type IExercisesData = {
-    exerciseId: number,
-    week: string,
-    day: string,
+    exerciseId: string,
     name: string,
     series: number,
     "reps-1": number,
@@ -38,10 +22,19 @@ type IExercisesData = {
     "reps-3": number,
     "reps-4": number,
     pause: number,
-    technique: string,
+    "c-speed": number,
+    "e-speed": number,
+    "technique-1": string,
+    "description-1": string,
+    "technique-2": string,
+    "description-2": string,
+    "technique-3": string,
+    "description-3": string,
+    "technique-4": string,
+    "description-4": string,
     "is-grouping": boolean,
     weight: number,
-    description: string
+    notes: string
 }
 
 type ITraining = WithId<Document>[] & [IExercisesData]
@@ -59,8 +52,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             const exerciseWeek = (week.substring(0, 1).toUpperCase() + week.substring(1)).replace("-", " ");
             const exerciseDay = getDayName(day);
 
-            // VERIFICAR SE EXISTE PLANO, SEMANA E DIA DE TREINO
-
             const training = await db.collection(`${plan}`).find({
                 $and: [
                     { week: exerciseWeek },
@@ -77,10 +68,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     "reps-3": item["reps-3"],
                     "reps-4": item["reps-4"],
                     pause: item.pause,
-                    technique: item.technique,
+                    "c-speed": item["c-speed"],
+                    "e-speed": item["e-speed"],
+                    "technique-1": item["technique-1"],
+                    "description-1": item["description-1"],
+                    "technique-2": item["technique-2"],
+                    "description-2": item["description-2"],
+                    "technique-3": item["technique-3"],
+                    "description-3": item["description-3"],
+                    "technique-4": item["technique-4"],
+                    "description-4": item["description-4"],
                     "is-grouping": item["is-grouping"],
                     weight: item.weight,
-                    description: item.description
+                    notes: item.notes
                 }
             });
 

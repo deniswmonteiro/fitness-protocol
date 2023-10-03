@@ -45,7 +45,7 @@ const ExerciseNotesModal = ({ exerciseId, showExerciseNotesModal, handleCloseExe
                     </div>
                     
                     {/* Exercise Notes */}
-                    <TextAreaComponent rows={3}
+                    <TextAreaComponent rows={5}
                         id="exercise-notes"
                         {...notes} />
 

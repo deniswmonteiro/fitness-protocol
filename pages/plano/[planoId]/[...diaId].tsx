@@ -21,10 +21,19 @@ type IExercisesData = {
     "reps-3": number,
     "reps-4": number,
     pause: number,
-    technique: string,
+    "c-speed": number,
+    "e-speed": number,
+    "technique-1": string,
+    "description-1": string,
+    "technique-2": string,
+    "description-2": string,
+    "technique-3": string,
+    "description-3": string,
+    "technique-4": string,
+    "description-4": string,
     "is-grouping": boolean,
     weight: number,
-    description: string
+    notes: string
 }
 
 type IDayPage = {

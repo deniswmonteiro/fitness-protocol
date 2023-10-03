@@ -1,5 +1,6 @@
 import React from "react";
 import { Badge, Carousel } from "react-bootstrap";
+import ExerciseRepetitions from "./ExerciseRepetitions";
 import ExerciseSeriesTimer from "./ExerciseSeriesTimer";
 import ExerciseWeight from "./ExerciseWeight";
 import ExerciseNotes from "./ExerciseNotes";
@@ -20,10 +21,19 @@ type IExercisesData = {
     "reps-3": number,
     "reps-4": number,
     pause: number,
-    technique: string,
+    "c-speed": number,
+    "e-speed": number,
+    "technique-1": string,
+    "description-1": string,
+    "technique-2": string,
+    "description-2": string,
+    "technique-3": string,
+    "description-3": string,
+    "technique-4": string,
+    "description-4": string,
     "is-grouping": boolean,
     weight: number,
-    description: string
+    notes: string
 }
 
 const TrainingExercises = ({ training }: { training: IData }) => {
@@ -49,47 +59,14 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                         <span>{exercise[1].series}</span> séries
                                     </p>
 
-                                    {exercise[1]["reps-1"] === exercise[1]["reps-4"] ?
-                                        (
-                                            <p>
-                                                {exercise[1].technique === "Rest pause 10s" ?
-                                                    (
-                                                        <span>{exercise[1]["reps-1"]} + Falha</span> 
-                                                    ) : (
-                                                        (exercise[1].technique === "Drop-set" ? 
-                                                            (
-                                                                <span>
-                                                                    {exercise[1]["reps-1"]} + {exercise[1]["reps-4"]}
-                                                                </span>
-                                                            ) : (
-                                                                <span>{exercise[1]["reps-1"]}</span>
-                                                            )
-                                                        )
-                                                    )
-                                                } repetições
-                                            </p>
-                                        ) : (
-                                            (exercise[1]["reps-2"] !== 0 && exercise[1]["reps-3"] === 0 ?
-                                                (
-                                                    <p>
-                                                        <span>{exercise[1]["reps-1"]} + {exercise[1]["reps-2"]} + {exercise[1]["reps-4"]}</span> repetições
-                                                    </p>
-                                                ) : (
-                                                    (exercise[1]["reps-3"] !== 0 ?
-                                                        (
-                                                            <p>
-                                                                <span>{exercise[1]["reps-1"]} + {exercise[1]["reps-2"]} + {exercise[1]["reps-3"]} + {exercise[1]["reps-4"]}</span> repetições
-                                                            </p>
-                                                        ) : (
-                                                            <p>
-                                                                <span>{exercise[1]["reps-1"]}</span> &ndash; <span>{exercise[1]["reps-4"]}</span> repetições
-                                                            </p>
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    }
+                                    <ExerciseRepetitions reps1={exercise[1]["reps-1"]}
+                                        reps2={exercise[1]["reps-2"]}
+                                        reps3={exercise[1]["reps-3"]}
+                                        reps4={exercise[1]["reps-4"]}
+                                        technique1={exercise[1]["technique-1"]}
+                                        technique2={exercise[1]["technique-2"]}
+                                        technique3={exercise[1]["technique-3"]}
+                                        technique4={exercise[1]["technique-4"]} />
                                 </div>
 
                                 <ExerciseSeriesTimer id={exercise[1].exerciseId}
@@ -98,14 +75,8 @@ const TrainingExercises = ({ training }: { training: IData }) => {
 
                                 <div className={styles.exerciseDetails}>
                                     <p>
-                                        <span>Técnica:</span> {exercise[1].technique}
+                                        {/* <span>Técnica:</span> {exercise[1].technique} */}
                                     </p>
-                                    
-                                    {exercise[1].description !== "null" && (
-                                        <p>
-                                            {exercise[1].description}
-                                        </p>
-                                    )}
                                 </div>
                             </div>
 
