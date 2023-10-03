@@ -65,7 +65,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             }
 
             else {
-                const exercises = await db.collection("exercises").find({ userId: user.id }).toArray() as IExercisesGet;
+                const exercises = await db.collection("exercise-weight").find({ userId: user.id }).toArray() as IExercisesGet;
                 const exercisesData = exercises.map((exercise: IExercisesGetData) => {
                     return {
                         exerciseId: exercise.exerciseId,
@@ -128,7 +128,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     else {
                         const exerciseWeight = Number(weight.replace(",", "."));
 
-                        await db.collection("exercises").insertOne({
+                        await db.collection("exercise-weight").insertOne({
                             exerciseId,
                             userId: user.id,
                             weight: exerciseWeight
@@ -178,7 +178,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     const connect = await dbConnect();
                     const db = connect.db();
 
-                    const exercises = db.collection("exercises");
+                    const exercises = db.collection("exercise-weight");
                     const exercise = await exercises.findOne({ exerciseId }) as IExercise;
 
                     if (!exercise) {

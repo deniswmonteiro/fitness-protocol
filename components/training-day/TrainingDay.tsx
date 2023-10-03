@@ -53,12 +53,11 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
     /** Get user exercise weight */
     const handleExerciseWeight = React.useCallback(async () => {
         if (session && session.user) {
-            const response = await fetch(`/api/exercises/?email=${session.user.email}`);
+            const response = await fetch(`/api/exercise-weight/?email=${session.user.email}`);
             const result = await response.json() as {
                 exercisesData: {
                     exerciseId: string,
                     weight: number,
-                    notes: string
                 }[]
             };
 
@@ -67,7 +66,6 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
                     result.exercisesData.map((data) => {
                         if (exercise[1].exerciseId === data.exerciseId) {
                             exercise[1].weight = data.weight;
-                            exercise[1].notes = data.notes;
                         }
                     });
                 });

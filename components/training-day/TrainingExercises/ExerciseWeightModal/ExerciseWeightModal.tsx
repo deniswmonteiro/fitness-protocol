@@ -36,7 +36,7 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
             setLoading(true);
 
             const method = exerciseWeight === "" ? "POST" : "PATCH";
-            const response = await fetch("/api/exercises", {
+            const response = await fetch("/api/exercise-weight", {
                 method,
                 headers: {
                     "Content-Type": "application/json"
