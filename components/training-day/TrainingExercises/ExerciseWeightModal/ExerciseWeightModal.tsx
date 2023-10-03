@@ -63,7 +63,14 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
                 });
             }
 
-            else setLoading(false);
+            else {
+                hideExerciseWeightModal(true);
+                
+                showNotification({
+                    message: result.message,
+                    status: "error"
+                });
+            }
         }
     }
 

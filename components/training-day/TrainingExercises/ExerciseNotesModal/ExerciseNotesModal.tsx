@@ -63,7 +63,14 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
                 });
             }
 
-            else setLoading(false);
+            else {
+                setLoading(false);
+
+                showNotification({
+                    message: result.message,
+                    status: "error"
+                });
+            }
         }
     }
 

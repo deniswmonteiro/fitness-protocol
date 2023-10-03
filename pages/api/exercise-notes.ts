@@ -35,6 +35,8 @@ type IUser = WithId<Document> & {
     id: number
 }
 
+type IExercise = WithId<Document> & IExerciseData;
+
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "POST") {
         const session: ISession | null = await getServerSession(req, res, authOptions);
@@ -83,6 +85,68 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
                         res.status(201).json({
                             message: "Anotações adicionadas com sucesso.",
+                            notes
+                        });
+
+                        connect.close();
+                    }
+                }
+
+                catch (error) {
+                    res.status(500).json({
+                        message: "Erro de conexão com o servidor."
+                    });
+                }
+            }
+        }
+    }
+
+    if (req.method === "PATCH") {
+        const session: ISession | null = await getServerSession(req, res, authOptions);
+
+        if (!session) {
+            res.status(401).json({
+                message: "Usuário não autenticado."
+            })
+        }
+
+        else {
+            const { exerciseId, notes } = req.body as IExerciseData;
+
+            // Validation
+            const isValidExerciseNotes = notes ? validate({ type: "exerciseNotes", min: 2, value: notes }) : false;
+
+            if (!isValidExerciseNotes) {
+                res.status(422).json({
+                    message: "Preencha o campo corretamente."
+                });
+            }
+
+            else {
+                try {
+                    const connect = await dbConnect();
+                    const db = connect.db();
+
+                    const exercises = db.collection("exercise-notes");
+                    const exercise = await exercises.findOne({ exerciseId }) as IExercise;
+
+                    if (!exercise) {
+                        res.status(404).json({
+                            message: "Exercício não encontrado."
+                        });
+
+                        connect.close();
+                    }
+
+                    else {
+                        await exercises.updateOne({ exerciseId }, {
+                            $set: {
+                                notes
+                            }
+                        });
+
+                        res.status(200).json({
+                            message: "Anotações atualizadas com sucesso.",
                             notes
                         });
 

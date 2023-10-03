@@ -22,9 +22,7 @@ type IExerciseData = {
     weight: string
 }
 
-type IExercise = WithId<Document> & IExerciseData & {
-    name: string,
-}
+type IExercise = WithId<Document> & IExerciseData;
 
 type ISession = {
     user: {
