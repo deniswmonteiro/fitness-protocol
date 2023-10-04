@@ -150,7 +150,8 @@ export async function getStaticPaths() {
         const planDaysRes = await planDaysReq.json() as {
             days: string[]
         };
-        const trainingDays = planDaysRes.days;
+        // const trainingDays = planDaysRes.days;
+        const trainingDays = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta"];
 
         for (let j = 0; j < trainingDays.length; j++) {
             const day = [trainingDays[j].toLowerCase()];
