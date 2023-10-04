@@ -144,8 +144,9 @@ export async function getStaticPaths() {
     let paths = [];
     
     for (let i = 0; i < trainingPlans.length; i++) {
+        const plan = trainingPlans[i].replace(" ", "-").toLowerCase();
+        
         for (let j = 0; j < trainingDays.length; j++) {
-            const plan = trainingPlans[i].replace(" ", "-").toLowerCase();
             const day = [trainingDays[j].toLowerCase()];
 
             paths.push({
