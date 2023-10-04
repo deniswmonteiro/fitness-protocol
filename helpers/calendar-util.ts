@@ -82,3 +82,38 @@ export const getDayName = (day: string) => {
 
     return dayName;
 }
+
+/** Order days of the week */
+export function orderWeekDaysArr(days: string[]) {
+    const daysArr: string[] = [];
+
+    days.find((day) => {
+        if (day === "Domingo") daysArr.push(day);
+    });
+
+    days.find((day) => {
+        if (day === "Segunda") daysArr.push(day);
+    });
+
+    days.find((day) => {
+        if (day === "Terça") daysArr.push("Terca");
+    });
+
+    days.find((day) => {
+        if (day === "Quarta") daysArr.push(day);
+    });
+
+    days.find((day) => {
+        if (day === "Quinta") daysArr.push(day);
+    });
+
+    days.find((day) => {
+        if (day === "Sexta") daysArr.push(day);
+    });
+
+    days.find((day) => {
+        if (day === "Sábado") daysArr.push("Sabado");
+    });
+
+    return daysArr;
+}

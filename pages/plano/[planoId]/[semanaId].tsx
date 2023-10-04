@@ -15,7 +15,7 @@ type ISession = {
     expires: string
 }
 
-const TrainingPage = ({ trainingWeeks }: { trainingWeeks: string[] }) => {
+const TrainingPage = ({ trainingWeeks, trainingDays }: { trainingWeeks: string[], trainingDays: string[] }) => {
     const [plan, setPlan] = React.useState(false);
     const [week, setWeek] = React.useState(false);
     const router = useRouter();
@@ -33,7 +33,10 @@ const TrainingPage = ({ trainingWeeks }: { trainingWeeks: string[] }) => {
     }, [planId, weekId, trainingWeeks]);
 
     return (
-        <Training plan={plan} planId={planId} week={week} weekId={weekId} />
+        <Training plan={plan} planId={planId}
+            week={week}
+            weekId={weekId}
+            trainingDays={trainingDays} />
     )
 }
 
@@ -41,6 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let session: ISession | null = await getServerSession(context.req, context.res, authOptions);
     const plan = context.params?.planoId as string;
     let trainingWeeks: string[] | null = null;
+    let trainingDays: string[] | null = null;
 
     if (session === null) {
         return {
@@ -58,16 +62,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         const planExists = trainingPlans.find((trainingPlan) => planName === trainingPlan);
 
         if (planExists) {
-            const response = await fetch(`${process.env.NEXTAUTH_URL}/api/plan-weeks/?plan=${plan}`);
-            const result = await response.json() as {
+            // Getting Plan Weeks from database
+            const planWeeksreq = await fetch(`${process.env.NEXTAUTH_URL}/api/plan-weeks/?plan=${plan}`);
+            const planWeeksRes = await planWeeksreq.json() as {
                 weeks: string[]
             };
-            
-            trainingWeeks = result.weeks;
+            trainingWeeks = planWeeksRes.weeks;
+
+            // Getting Plan Days from database
+            const planDaysReq = await fetch(`${process.env.NEXTAUTH_URL}/api/plan-days/?plan=${plan}`);
+            const planDaysRes = await planDaysReq.json() as {
+                days: string[]
+            };
+            trainingDays = planDaysRes.days;            
 
             return {
                 props: {
-                    trainingWeeks
+                    trainingWeeks,
+                    trainingDays
                 }
             }
         }
@@ -75,7 +87,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         else {
             return {
                 props: {
-                    trainingWeeks
+                    trainingWeeks,
+                    trainingDays
                 }
             }
         }

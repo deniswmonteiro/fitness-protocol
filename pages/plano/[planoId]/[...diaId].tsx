@@ -38,10 +38,6 @@ type IDayPage = {
     trainingData: IData
 }
 
-const trainingDays = [
-    "Segunda", "Terca", "Quarta", "Quinta", "Sexta"
-];
-
 const DayPage = ({ hasPlanError, hasWeekError, hasDayError, trainingData}: IDayPage) => {
     return (
         <TrainingDay hasPlanError={hasPlanError}
@@ -63,6 +59,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
             weeks: string[]
         };
         const trainingWeeks = planWeeksRes.weeks;
+
+        // Getting Plan Days from database
+        const planDaysReq = await fetch(`${process.env.NEXTAUTH_URL}/api/plan-days/?plan=${plan}`);
+        const planDaysRes = await planDaysReq.json() as {
+            days: string[]
+        };
+        const trainingDays = planDaysRes.days;
 
         const planName = plan.split("-").map((planNameItem) => {
             return (planNameItem.substring(0, 1).toUpperCase() + planNameItem.substring(1))
@@ -138,20 +141,31 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export async function getStaticPaths() {
     let paths = [];
-
+    
     for (let i = 0; i < trainingPlans.length; i++) {
+        const plan = trainingPlans[i].replace(" ", "-").toLowerCase();
+
+        // Getting Plan Days from database
+        const planDaysReq = await fetch(`${process.env.NEXTAUTH_URL}/api/plan-days/?plan=${plan}`);
+        const planDaysRes = await planDaysReq.json() as {
+            days: string[]
+        };
+        const trainingDays = planDaysRes.days;
+
         for (let j = 0; j < trainingDays.length; j++) {
+            const day = [trainingDays[j].toLowerCase()];
+
             paths.push({
                 params: {
-                    planoId: trainingPlans[i].replace(" ", "-").toLowerCase(),
-                    diaId: [trainingDays[j].toLowerCase()]
+                    planoId: plan,
+                    diaId: day
                 }
             });
         }
     }
 
     return {
-        paths: paths,
+        paths,
         fallback: true
     }
 }

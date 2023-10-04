@@ -9,14 +9,11 @@ type ITraining = {
     plan: boolean,
     planId: string,
     week: boolean,
-    weekId: string
+    weekId: string,
+    trainingDays: string[]
 }
 
-const trainingDays = [
-    "Segunda", "Terca", "Quarta", "Quinta", "Sexta"
-];
-
-const Training = ({ plan, planId, week, weekId }: ITraining) => {
+const Training = ({ plan, planId, week, weekId, trainingDays }: ITraining) => {
     const { data: session } = useSession();
     const router = useRouter();
 
