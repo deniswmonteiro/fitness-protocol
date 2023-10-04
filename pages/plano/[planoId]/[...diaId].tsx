@@ -3,10 +3,6 @@ import { GetStaticProps } from "next";
 import trainingPlans from "@/helpers/plan-list";
 import TrainingDay from "@/components/training-day/TrainingDay";
 
-type IResult = {
-    data: IData
-}
-
 type IData = {
     id: number,
     title: string,
@@ -42,10 +38,6 @@ type IDayPage = {
     trainingData: IData
 }
 
-const trainingWeeks = [
-    "Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8", "Semana 9", "Semana 10", "Semana 11", "Semana 12", 
-];
-
 const trainingDays = [
     "Segunda", "Terca", "Quarta", "Quinta", "Sexta"
 ];
@@ -65,6 +57,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const day = context.params?.diaId?.[1];
 
     if (plan && week && day) {
+        // Getting Plan Weeks from database
+        const planWeeksReq = await fetch(`${process.env.NEXTAUTH_URL}/api/plan-weeks/?plan=${plan}`);
+        const planWeeksRes = await planWeeksReq.json() as {
+            weeks: string[]
+        };
+        const trainingWeeks = planWeeksRes.weeks;
+
         const planName = plan.split("-").map((planNameItem) => {
             return (planNameItem.substring(0, 1).toUpperCase() + planNameItem.substring(1))
         }).join(" ");
@@ -110,9 +109,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
 
         else {
-            const response = await fetch(`${process.env.NEXTAUTH_URL}/api/training/?plan=${plan}&week=${week}&day=${day}`);
-            const result = await response.json() as IResult;
-            const trainingData = result.data;
+            const trainingReq = await fetch(`${process.env.NEXTAUTH_URL}/api/training/?plan=${plan}&week=${week}&day=${day}`);
+            const trainingRes = await trainingReq.json() as { data: IData };
+            const trainingData = trainingRes.data;
 
             return {
                 props: {
