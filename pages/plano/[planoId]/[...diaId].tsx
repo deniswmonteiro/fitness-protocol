@@ -21,8 +21,6 @@ type IExercisesData = {
     "reps-3": number,
     "reps-4": number,
     pause: number,
-    "c-speed": number,
-    "e-speed": number,
     "technique-1": string,
     "description-1": string,
     "technique-2": string,
