@@ -5,6 +5,7 @@ import ExerciseSeriesTimer from "./ExerciseSeriesTimer";
 import ExerciseWeight from "./ExerciseWeight";
 import ExerciseNotes from "./ExerciseNotes";
 import styles from "./TrainingExercises.module.css";
+import QuestionCircleIcon from "@/components/icons/question-circle-icon";
 
 type IData = {
     id: number,
@@ -74,12 +75,37 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                     series={exercise[1].series} />
 
                                 <div className={styles.exerciseDetails}>
-                                    <p>
-                                        {/* <span>Técnica:</span> {exercise[1].technique} */}
-                                    </p>
+                                    <div>
+                                        <p>Velocidade C/E:</p>
+                                        <span>
+                                            {exercise[1]["c-speed"]} por {exercise[1]["e-speed"]}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            Técnica(s):
+                                            
+                                            <button>
+                                                <QuestionCircleIcon />
+                                            </button>
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                {exercise[1]["technique-1"] !== "null" ? exercise[1]["technique-1"] : ""}
+                                            </li>
+                                            <li>
+                                                {exercise[1]["technique-2"] !== "null" ? exercise[1]["technique-2"] : ""}
+                                            </li>
+                                            <li>
+                                                {exercise[1]["technique-3"] !== "null" ? exercise[1]["technique-3"] : ""}
+                                            </li>
+                                            <li>
+                                                {exercise[1]["technique-4"] !== "null" ? exercise[1]["technique-4"] : ""}
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
                             <div className={styles.exerciseFooter}>
                                 <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
                                 <ExerciseNotes exerciseId={exercise[1].exerciseId} notes={exercise[1].notes} />

@@ -164,7 +164,7 @@ a {
 .carousel-inner,
 .carousel-item {
     border-radius: .375rem;
-    background-color: var(--color-blue-2);
+    background-color: var(--color-black-3);
 }
 
 .carousel-indicators {

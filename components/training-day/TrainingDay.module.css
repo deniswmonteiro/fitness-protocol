@@ -1,4 +1,7 @@
-.trainingDay,
+.trainingDay {
+    padding: 1rem;
+}
+
 .trainingDayLoading {
     padding: 3rem 1rem;
 }
