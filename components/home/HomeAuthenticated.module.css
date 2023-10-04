@@ -36,22 +36,6 @@
     margin-bottom: 1.5rem;
 }
 
-.workouts button {
-    border: none;
-    background: none;
-    padding: 0;
-    outline: none;
-    width: 100%;
-}
-
-.workouts button.btnCreateTraining {
-    border: none;
-    background: none;
-    padding: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
 @media (max-width: 30rem) {
     .title {
         padding: 3rem 0 2rem 0;

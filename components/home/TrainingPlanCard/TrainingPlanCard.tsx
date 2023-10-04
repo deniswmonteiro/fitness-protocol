@@ -13,7 +13,7 @@ const TrainingPlanCard = ({ plan }: { plan: string }) => {
     }, [plan]);
 
     return (
-        <div className={styles.trainingWeekCard}>
+        <div className={styles.trainingPlanCard}>
             <Link href={`/plano/${planSlug}`} onClick={() => setLoading(true)}>
                 <Card className={styles.card}>
                     <Card.Body className={styles.cardContent}>

@@ -1,5 +1,6 @@
 import React from "react";
 import { GetStaticProps } from "next";
+import trainingPlans from "@/helpers/plan-list";
 import TrainingDay from "@/components/training-day/TrainingDay";
 
 type IResult = {
@@ -40,10 +41,6 @@ type IDayPage = {
     hasDayError: boolean,
     trainingData: IData
 }
-
-const trainingPlans = [
-    "Mass Protocol"
-];
 
 const trainingWeeks = [
     "Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8", "Semana 9", "Semana 10", "Semana 11", "Semana 12", 

@@ -5,11 +5,13 @@ import Header from "../layout/Header";
 import TrainingWeekCard from "./TrainingWeekCard/TrainingWeekCard";
 import styles from "./Plan.module.css";
 
-const trainingWeeks = [
-    "Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8", "Semana 9", "Semana 10", "Semana 11", "Semana 12", 
-];
+type IPlan = {
+    plan: boolean,
+    planId: string,
+    trainingWeeks: string[]
+}
 
-const Plan = ({ plan, planId }: { plan: boolean, planId: string }) => {
+const Plan = ({ plan, planId, trainingWeeks }: IPlan) => {
     const { data: session } = useSession();
     const router = useRouter();
 

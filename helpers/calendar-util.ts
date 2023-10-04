@@ -51,6 +51,10 @@ export const getDayName = (day: string) => {
     let dayName = "";
 
     switch (day) {
+        case "domingo":
+            dayName = "Domingo";
+            break;
+
         case "segunda":
             dayName = "Segunda";
             break;
@@ -69,6 +73,10 @@ export const getDayName = (day: string) => {
 
         case "sexta":
             dayName = "Sexta";
+            break;
+
+        case "sabado":
+            dayName = "Sábado";
             break;
     }
 

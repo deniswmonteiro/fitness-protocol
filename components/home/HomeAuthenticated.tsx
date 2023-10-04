@@ -2,6 +2,7 @@ import React from "react";
 import { getWithExpiry } from "@/helpers/localstorage-util";
 import Header from "../layout/Header";
 import Calendar from "../ui/Calendar";
+import trainingPlans from "@/helpers/plan-list";
 import ProfileModal from "./ProfileModal/ProfileModal";
 import LogoutModal from "./LogoutModal/LogoutModal";
 import TrainingPlanCard from "./TrainingPlanCard/TrainingPlanCard";
@@ -14,10 +15,6 @@ type IUserData = {
     weight: string,
     height: string
 }
-
-const trainingPlans = [
-    "Mass Protocol"
-]
 
 const HomeAuthenticated = ({ user }: { user: IUserData }) => {
     const [dayDone, setDayDone] = React.useState("");
@@ -61,6 +58,7 @@ const HomeAuthenticated = ({ user }: { user: IUserData }) => {
                 <div className={styles.workouts}>
                     <h2 className="title-2">Planos de Treino</h2>
 
+                    {/* Plan list */}
                     {trainingPlans.map((plan) => (
                         <TrainingPlanCard key={plan} plan={plan} />
                     ))}
