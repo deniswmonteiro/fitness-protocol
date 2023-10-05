@@ -11,8 +11,7 @@ type IExerciseTechniquesInfo = {
 const ExerciseTechniquesInfo = ({ technique, description, showTechniquesDescription, handleCloseTechniquesDescription }: IExerciseTechniquesInfo) => {
     return (
         <>
-            <Offcanvas show={showTechniquesDescription}
-                onHide={handleCloseTechniquesDescription}
+            <Offcanvas show={showTechniquesDescription} onHide={handleCloseTechniquesDescription}
                 placement="bottom"
                 backdrop="static">
                 <Offcanvas.Header closeButton>

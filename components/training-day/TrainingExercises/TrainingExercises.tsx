@@ -30,7 +30,7 @@ type IExercisesData = {
     "description-3": string,
     "technique-4": string,
     "description-4": string,
-    "is-grouping": boolean,
+    "grouping": string,
     weight: number,
     notes: string
 }
@@ -42,9 +42,9 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                 <Carousel controls={false} interval={null}>
                     {Object.entries(training.exercises).map((exercise) => (
                         <Carousel.Item key={exercise[0]}>
-                            {exercise[1]["is-grouping"] && (
+                            {exercise[1]["grouping"] !== "null" && (
                                 <Badge className={styles.exerciseGroupingBadge}>
-                                    Bi-set
+                                    {exercise[1]["grouping"]}
                                 </Badge>
                             )}
 

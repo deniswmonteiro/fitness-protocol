@@ -36,7 +36,7 @@ type IExercisesData = {
     "description-3": string,
     "technique-4": string,
     "description-4": string,
-    "is-grouping": boolean,
+    "grouping": string,
     weight: number,
     notes: string
 }

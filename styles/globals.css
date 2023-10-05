@@ -113,7 +113,7 @@ a {
 
 /** Modal */
 .modal {
-    background-color: rgba(34, 34, 34, .7) !important;
+    background-color: rgba(34, 34, 34, .8) !important;
 }
 
 .modal-dialog {
@@ -176,11 +176,11 @@ a {
 
 /** Offcanvas */
 .offcanvas-backdrop {
-   background-color: rgba(34, 34, 34, .7);
+   background-color: var(--color-black-3);
 }
 
 .offcanvas-backdrop.show {
-    opacity: .7 !important;
+    opacity: .8 !important;
 }
 
 .offcanvas-header {

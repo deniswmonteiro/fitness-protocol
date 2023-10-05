@@ -30,7 +30,7 @@ type IExercisesData = {
     "description-3": string,
     "technique-4": string,
     "description-4": string,
-    "is-grouping": boolean,
+    "grouping": string,
     weight: number,
     notes: string
 }
@@ -74,7 +74,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     "description-3": item["description-3"],
                     "technique-4": item["technique-4"],
                     "description-4": item["description-4"],
-                    "is-grouping": item["is-grouping"],
+                    "grouping": item["grouping"],
                     weight: item.weight,
                     notes: item.notes
                 }
