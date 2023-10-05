@@ -2,7 +2,7 @@ import React from "react";
 import { Badge, Carousel } from "react-bootstrap";
 import ExerciseRepetitions from "./ExerciseRepetitions";
 import ExerciseSeriesTimer from "./ExerciseSeriesTimer";
-import ShowExerciseTechniquesInfo from "./showExerciseTechniquesInfo";
+import ShowExerciseTechniquesInfo from "./ShowExerciseTechniquesInfo";
 import ExerciseWeight from "./ExerciseWeight";
 import ExerciseNotes from "./ExerciseNotes";
 import styles from "./TrainingExercises.module.css";
