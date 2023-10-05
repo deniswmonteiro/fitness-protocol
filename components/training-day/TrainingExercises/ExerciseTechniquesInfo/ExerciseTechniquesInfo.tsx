@@ -19,7 +19,7 @@ const ExerciseTechniquesInfo = ({ technique, description, showTechniquesDescript
                     <Offcanvas.Title>{technique}</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {description}
+                    <p>{description}</p>
                 </Offcanvas.Body>
             </Offcanvas>
         </>

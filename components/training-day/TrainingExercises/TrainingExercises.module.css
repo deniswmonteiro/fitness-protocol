@@ -74,7 +74,7 @@
 
 .exerciseDetails ul li {
     display: flex;
-    gap: 1rem;
+    gap: .875rem;
     margin-bottom: .875rem !important;
 }
 

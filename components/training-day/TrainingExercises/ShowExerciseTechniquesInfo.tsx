@@ -1,6 +1,6 @@
 import React from "react";
-import QuestionCircleIcon from "@/components/icons/question-circle-icon";
 import ExerciseTechniquesInfo from "./ExerciseTechniquesInfo/ExerciseTechniquesInfo";
+import QuestionCircleIcon from "@/components/icons/question-circle-icon";
 import styles from "./ShowExerciseTechniquesInfo.module.css";
 
 type IShowExerciseTechniquesInfo = {

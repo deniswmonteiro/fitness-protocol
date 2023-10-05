@@ -88,34 +88,34 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                                         description={exercise[1]["description-1"]} />
                                                 </li>
                                             }
-                                            {exercise[1]["technique-1"] !== "null" &&
+                                            {exercise[1]["technique-2"] !== "null" &&
                                                 <li>
                                                     <span>
-                                                        {exercise[1]["technique-1"]}
+                                                        {exercise[1]["technique-2"]}
                                                     </span>
 
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
-                                                        description={exercise[1]["description-1"]} />
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-2"]}
+                                                        description={exercise[1]["description-2"]} />
                                                 </li>
                                             }
-                                            {exercise[1]["technique-1"] !== "null" &&
+                                            {exercise[1]["technique-3"] !== "null" &&
                                                 <li>
                                                     <span>
-                                                        {exercise[1]["technique-1"]}
+                                                        {exercise[1]["technique-3"]}
                                                     </span>
 
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
-                                                        description={exercise[1]["description-1"]} />
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-3"]}
+                                                        description={exercise[1]["description-3"]} />
                                                 </li>
                                             }
-                                            {exercise[1]["technique-1"] !== "null" &&
+                                            {exercise[1]["technique-4"] !== "null" &&
                                                 <li>
                                                     <span>
-                                                        {exercise[1]["technique-1"]}
+                                                        {exercise[1]["technique-4"]}
                                                     </span>
 
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
-                                                        description={exercise[1]["description-1"]} />
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-4"]}
+                                                        description={exercise[1]["description-4"]} />
                                                 </li>
                                             }
                                         </ul>
