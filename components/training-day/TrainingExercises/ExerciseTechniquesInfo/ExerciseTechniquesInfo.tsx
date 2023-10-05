@@ -2,23 +2,24 @@ import React from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 type IExerciseTechniquesInfo = {
-    showExerciseTechniquesInfo: boolean,
-    handleCloseExerciseTechniquesInfo: () => void
+    technique: string,
+    description: string,
+    showTechniquesDescription: boolean,
+    handleCloseTechniquesDescription: () => void
 }
 
-const ExerciseTechniquesInfo = ({ showExerciseTechniquesInfo, handleCloseExerciseTechniquesInfo }: IExerciseTechniquesInfo) => {
+const ExerciseTechniquesInfo = ({ technique, description, showTechniquesDescription, handleCloseTechniquesDescription }: IExerciseTechniquesInfo) => {
     return (
         <>
-            <Offcanvas show={showExerciseTechniquesInfo}
-                onHide={handleCloseExerciseTechniquesInfo}
+            <Offcanvas show={showTechniquesDescription}
+                onHide={handleCloseTechniquesDescription}
                 placement="bottom"
                 backdrop="static">
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    <Offcanvas.Title>{technique}</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    Some text as placeholder. In real life you can have the elements you
-                    have chosen. Like, text, images, lists, etc.
+                    {description}
                 </Offcanvas.Body>
             </Offcanvas>
         </>

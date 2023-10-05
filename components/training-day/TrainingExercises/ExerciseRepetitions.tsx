@@ -26,7 +26,7 @@ const ExerciseRepetitions = ({ reps1, reps2, reps3, reps4, technique1, technique
 
         else if (technique1 === "Drop-set" || technique2 === "Drop-set" || technique3 === "Drop-set" || technique4 === "Drop-set") {
             if (reps1 === reps4) setRepetitionsInfo(<p><span>{reps1}</span> + <span>{reps4}</span> repetições</p>);
-            else setRepetitionsInfo(<p><span>{reps1}</span> a <span>{reps4}</span> repetições</p>);
+            else setRepetitionsInfo(<p><span>{reps1}</span> &ndash; <span>{reps4}</span> repetições</p>);
         }
 
         else if (technique1 === "MTUT (1-3)" || technique2 === "MTUT (1-3)" || technique3 === "MTUT (1-3)" || technique4 === "MTUT (1-3)") {
@@ -53,7 +53,7 @@ const ExerciseRepetitions = ({ reps1, reps2, reps3, reps4, technique1, technique
                 setRepetitionsInfo(<p><span>{reps1}</span> + <span>{reps2}</span> + <span>{reps4}</span> repetições</p>);
             }
             
-            else setRepetitionsInfo(<p><span>{reps1}</span> a <span>{reps4}</span> repetições</p>);
+            else setRepetitionsInfo(<p><span>{reps1}</span> &ndash; <span>{reps4}</span> repetições</p>);
         }
 
         else if (technique1 === "Isometria" || technique2 === "Isometria" || technique3 === "Isometria" || technique4 === "Isometria") {
@@ -75,7 +75,7 @@ const ExerciseRepetitions = ({ reps1, reps2, reps3, reps4, technique1, technique
                 setRepetitionsInfo(<p><span>Falha</span></p>);
             }
 
-            else setRepetitionsInfo(<p><span>{reps1}</span> a <span>{reps4}</span> repetições</p>);
+            else setRepetitionsInfo(<p><span>{reps1}</span> &ndash; <span>{reps4}</span> repetições</p>);
         }
     }, [technique1, technique2, technique3, technique4, reps1, reps2, reps3, reps4]);
 

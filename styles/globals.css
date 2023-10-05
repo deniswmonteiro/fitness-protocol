@@ -33,10 +33,6 @@ body {
     font-family: var(--font-first) !important;
 }
 
-/* body.modal-open {
-    pointer-events: none !important;
-} */
-
 h1,
 h2,
 h3,

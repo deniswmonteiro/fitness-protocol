@@ -2,11 +2,10 @@ import React from "react";
 import { Badge, Carousel } from "react-bootstrap";
 import ExerciseRepetitions from "./ExerciseRepetitions";
 import ExerciseSeriesTimer from "./ExerciseSeriesTimer";
+import ShowExerciseTechniquesInfo from "./showExerciseTechniquesInfo";
 import ExerciseWeight from "./ExerciseWeight";
 import ExerciseNotes from "./ExerciseNotes";
 import styles from "./TrainingExercises.module.css";
-import QuestionCircleIcon from "@/components/icons/question-circle-icon";
-import ExerciseTechniquesInfo from "./ExerciseTechniquesInfo/ExerciseTechniquesInfo";
 
 type IData = {
     id: number,
@@ -37,13 +36,6 @@ type IExercisesData = {
 }
 
 const TrainingExercises = ({ training }: { training: IData }) => {
-    /** Off canvas state */
-    const [showExerciseTechniquesInfo, setShowExerciseTechniquesInfo] = React.useState(false);
-
-    /**  Exercise Techniques Info off canvas */
-    const handleCloseExerciseTechniquesInfo = () => setShowExerciseTechniquesInfo(false);
-    const handleShowExerciseTechniquesInfo = () => setShowExerciseTechniquesInfo(true);
-
     return (
         <>
             <div className="animeLeft">
@@ -84,15 +76,48 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                     <div className={styles.exerciseDetails}>
                                         <p>
                                             Técnica(s):
-                                            
-                                            <button onClick={handleShowExerciseTechniquesInfo}>
-                                                <QuestionCircleIcon />
-                                            </button>
                                         </p>
                                         <ul>
-                                            <li>
-                                                {exercise[1]["technique-1"] !== "null" ? exercise[1]["technique-1"] : ""}
-                                            </li>
+                                            {exercise[1]["technique-1"] !== "null" &&
+                                                <li>
+                                                    <span>
+                                                        {exercise[1]["technique-1"]}
+                                                    </span>
+
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
+                                                        description={exercise[1]["description-1"]} />
+                                                </li>
+                                            }
+                                            {exercise[1]["technique-1"] !== "null" &&
+                                                <li>
+                                                    <span>
+                                                        {exercise[1]["technique-1"]}
+                                                    </span>
+
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
+                                                        description={exercise[1]["description-1"]} />
+                                                </li>
+                                            }
+                                            {exercise[1]["technique-1"] !== "null" &&
+                                                <li>
+                                                    <span>
+                                                        {exercise[1]["technique-1"]}
+                                                    </span>
+
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
+                                                        description={exercise[1]["description-1"]} />
+                                                </li>
+                                            }
+                                            {exercise[1]["technique-1"] !== "null" &&
+                                                <li>
+                                                    <span>
+                                                        {exercise[1]["technique-1"]}
+                                                    </span>
+
+                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
+                                                        description={exercise[1]["description-1"]} />
+                                                </li>
+                                            }
                                             <li>
                                                 {exercise[1]["technique-2"] !== "null" ? exercise[1]["technique-2"] : ""}
                                             </li>
@@ -114,10 +139,6 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                     ))}
                 </Carousel>
             </div>
-
-            {/* Exercise Techniques Info off canvas */}
-            <ExerciseTechniquesInfo showExerciseTechniquesInfo={showExerciseTechniquesInfo}
-                handleCloseExerciseTechniquesInfo={handleCloseExerciseTechniquesInfo} />
         </>
     )
 }
