@@ -12,7 +12,7 @@
 
 .carouselBg {
     width: 100%;
-    height: 30rem;
+    height: 32rem;
     background-color: var(--color-black-3);
     border-radius: .375rem;
 }
@@ -29,7 +29,7 @@
 .exerciseContent {
     display: flex;
     flex-direction: column;
-    min-height: 25.75rem;
+    min-height: 27.75rem;
 }
 
 .carouselContent h2 {
@@ -75,7 +75,7 @@
 .exerciseDetails ul li {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem !important;
+    margin-bottom: .875rem !important;
 }
 
 .exerciseFooter {

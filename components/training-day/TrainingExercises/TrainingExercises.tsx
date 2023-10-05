@@ -118,15 +118,6 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                                         description={exercise[1]["description-1"]} />
                                                 </li>
                                             }
-                                            <li>
-                                                {exercise[1]["technique-2"] !== "null" ? exercise[1]["technique-2"] : ""}
-                                            </li>
-                                            <li>
-                                                {exercise[1]["technique-3"] !== "null" ? exercise[1]["technique-3"] : ""}
-                                            </li>
-                                            <li>
-                                                {exercise[1]["technique-4"] !== "null" ? exercise[1]["technique-4"] : ""}
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
