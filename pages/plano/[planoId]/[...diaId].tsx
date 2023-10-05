@@ -140,7 +140,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export async function getStaticPaths() {
-    const trainingDays = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta"];
+    // const trainingDays = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta"];
     let paths = [];
     
     for (let i = 0; i < trainingPlans.length; i++) {
@@ -151,7 +151,7 @@ export async function getStaticPaths() {
         const planDaysRes = await planDaysReq.json() as {
             days: string[]
         };
-        // const trainingDays = planDaysRes.days;
+        const trainingDays = planDaysRes.days;
         
 
         for (let j = 0; j < trainingDays.length; j++) {
