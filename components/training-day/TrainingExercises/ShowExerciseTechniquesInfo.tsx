@@ -1,7 +1,7 @@
 import React from "react";
 import QuestionCircleIcon from "@/components/icons/question-circle-icon";
 import ExerciseTechniquesInfo from "./ExerciseTechniquesInfo/ExerciseTechniquesInfo";
-import styles from "./showExerciseTechniquesInfo.module.css";
+import styles from "./ShowExerciseTechniquesInfo.module.css";
 
 type IShowExerciseTechniquesInfo = {
     technique: string,
