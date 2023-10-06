@@ -33,7 +33,7 @@ const HomeAuthenticated = ({ user }: { user: IUserData }) => {
 
     React.useEffect(() => {
         /** Get day done from local storage */
-        const calendarData = getWithExpiry(`Calendar`) as string;
+        const calendarData = getWithExpiry("Calendar") as string;
 
         if (calendarData !== null) setDayDone(calendarData);
     }, []);

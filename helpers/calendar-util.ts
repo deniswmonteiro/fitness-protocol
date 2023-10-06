@@ -28,6 +28,10 @@ export const getDates = () => {
     return week;
 }
 
+export const getHoursInMilliseconds = (hour: number) => {
+    return hour * 3600000;
+}
+
 /** Get the last day of the week in milliseconds */
 export const getLastDayOfTheWeekInMilliseconds = () => {
     const dateObj = new Date();
@@ -76,6 +80,78 @@ export const getDayName = (day: string) => {
             break;
 
         case "sabado":
+            dayName = "Sábado";
+            break;
+    }
+
+    return dayName;
+}
+
+export const getAbbrDayName = (day: string) => {
+    let dayName = "";
+
+    switch (day) {
+        case "domingo":
+            dayName = "Dom";
+            break;
+
+        case "segunda":
+            dayName = "Seg";
+            break;
+
+        case "terca":
+            dayName = "Ter";
+            break;
+
+        case "quarta":
+            dayName = "Qua";
+            break;
+
+        case "quinta":
+            dayName = "Qui";
+            break;
+
+        case "sexta":
+            dayName = "Sex";
+            break;
+
+        case "sabado":
+            dayName = "Sáb";
+            break;
+    }
+
+    return dayName;
+}
+
+export const getFullDayName = (day: string) => {
+    let dayName = "";
+
+    switch (day) {
+        case "Dom":
+            dayName = "Domingo";
+            break;
+
+        case "Seg":
+            dayName = "Segunda";
+            break;
+
+        case "Ter":
+            dayName = "Terca";
+            break;
+
+        case "Qua":
+            dayName = "Quarta";
+            break;
+
+        case "Qui":
+            dayName = "Quinta";
+            break;
+
+        case "Sex":
+            dayName = "Sexta";
+            break;
+
+        case "Sáb":
             dayName = "Sábado";
             break;
     }

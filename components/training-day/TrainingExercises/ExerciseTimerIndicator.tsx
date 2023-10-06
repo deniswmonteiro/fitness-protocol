@@ -1,6 +1,7 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { getWithExpiry, setWithExpiry } from "@/helpers/localstorage-util";
-import { getDay, getLastDayOfTheWeekInMilliseconds } from "@/helpers/calendar-util";
+import { getAbbrDayName, getDay, getHoursInMilliseconds, getLastDayOfTheWeekInMilliseconds } from "@/helpers/calendar-util";
 import TimerModal from "./TimerModal/TimerModal";
 import StopIcon from "@/components/icons/stop-icon";
 import CheckIcon from "@/components/icons/check-icon";
@@ -9,6 +10,7 @@ import styles from "./ExerciseTimerIndicator.module.css";
 
 type IExerciseTimerIndicator = {
     id: string,
+    qtyExercises: number,
     pause: number,
     serieListDone: ISeriesList[],
     setSerieListDone: React.Dispatch<React.SetStateAction<ISeriesList[]>>
@@ -19,10 +21,12 @@ type ISeriesList = {
     done: boolean;
 }
 
-const ExerciseTimerIndicator = ({ id, pause, serieListDone, setSerieListDone }: IExerciseTimerIndicator) => {
+const ExerciseTimerIndicator = ({ id, qtyExercises, pause, serieListDone, setSerieListDone }: IExerciseTimerIndicator) => {
     const [serieStarted, setSerieStarted] = React.useState(0);
     const [exerciseFinished, setExerciseFinished] = React.useState(false);
-    const [day, setDay] = React.useState("");
+    const [calendarDay, setCalendarDay] = React.useState("");
+    const [concludedDay, setConcludedDay] = React.useState("");
+    const router = useRouter();
 
     /** Modal state */
     const [showTimerModal, setShowTimerModal] = React.useState(false);
@@ -66,25 +70,48 @@ const ExerciseTimerIndicator = ({ id, pause, serieListDone, setSerieListDone }: 
         const exercisesSeries = window.localStorage.getItem(`Exercise-${id}`);
 
         if (exercisesSeries !== null) {
-            const storagedSeries = JSON.parse(exercisesSeries) as {
+            // Checks whether the exercise has been completed
+            const storagedExerciseSeries = JSON.parse(exercisesSeries) as {
                 data: [ISeriesList],
                 expiry: number
             };
-            const seriesDone = storagedSeries.data.every((item: ISeriesList) => item.done);
+            const ExerciseSeriesDone = storagedExerciseSeries.data.every((item: ISeriesList) => item.done);
 
-            if (seriesDone) {
-                setExerciseFinished(true);
+            if (ExerciseSeriesDone) setExerciseFinished(true);
 
-                // Save day done in local storage expiring at the end of the week
-                setWithExpiry("Calendar", day, getLastDayOfTheWeekInMilliseconds());
+            // Save the workout day to localstorage
+            const storagedSeries = [];
+            const ExercisesConcluded = [];
+
+            for (let i = 1; i <= qtyExercises; i++) {
+                storagedSeries.push(window.localStorage.getItem(`Exercise-${id.slice(0, -1)}${i}`));
+            }
+
+            storagedSeries.forEach((serie) => {
+                if (serie !== null) {
+                    const storagedExercise = JSON.parse(serie) as {
+                        data: [ISeriesList],
+                        expiry: number
+                    };
+                    const ExerciseDone = storagedExercise.data.every((item: ISeriesList) => item.done);
+                    
+                    if (ExerciseDone) ExercisesConcluded.push(true);
+                }
+            });
+            
+            if (ExercisesConcluded.length === qtyExercises) {
+                setWithExpiry("Calendar", calendarDay, getLastDayOfTheWeekInMilliseconds());
+                setWithExpiry("ConcludedDay", concludedDay, getHoursInMilliseconds(24));
             }
         }
-    }, [id, day]);
+    }, [id, calendarDay, qtyExercises, concludedDay]);
 
     React.useEffect(() => {
-        // Save day done in local storage expiring at the end of the week
+        /** Save day done in local storage expiring at the end of the week */
+        if (router.query.diaId) setConcludedDay(getAbbrDayName(router.query.diaId[1]));
+
         const day = getDay(new Date().getDay());
-        setDay(day);
+        setCalendarDay(day);
 
         /** Get done series from local storage */
         const exerciseSeriesList = getWithExpiry(`Exercise-${id}`) as ISeriesList[];
@@ -93,7 +120,7 @@ const ExerciseTimerIndicator = ({ id, pause, serieListDone, setSerieListDone }: 
             setSerieListDone(exerciseSeriesList)
             handleExerciseDone()
         }
-    }, [id, setSerieListDone, handleExerciseDone]);
+    }, [router.query.diaId, id, setSerieListDone, handleExerciseDone]);
 
     return (
         <>

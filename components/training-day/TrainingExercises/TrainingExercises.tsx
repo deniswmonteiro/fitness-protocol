@@ -70,6 +70,7 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                     </div>
 
                                     <ExerciseSeriesTimer id={exercise[1].exerciseId}
+                                        qtyExercises={training.exercises.length}
                                         pause={exercise[1].pause}
                                         series={exercise[1].series} />
 

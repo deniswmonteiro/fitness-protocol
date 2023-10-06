@@ -4,11 +4,12 @@ import styles from "./ExerciseSeriesTimer.module.css";
 
 type IExerciseSeriesTimer = {
     id: string,
+    qtyExercises: number,
     pause: number,
     series: number
 }
 
-const ExerciseSeriesTimer = ({ id, pause, series }: IExerciseSeriesTimer) => {
+const ExerciseSeriesTimer = ({ id, qtyExercises, pause, series }: IExerciseSeriesTimer) => {
     const [serieListDone, setSerieListDone] = React.useState(() => {
         const seriesInfo = [];
 
@@ -25,6 +26,7 @@ const ExerciseSeriesTimer = ({ id, pause, series }: IExerciseSeriesTimer) => {
     return (
         <div className={styles.seriesTimer}>
             <ExerciseTimerIndicator id={id}
+                qtyExercises={qtyExercises}
                 pause={pause}
                 serieListDone={serieListDone}
                 setSerieListDone={setSerieListDone} />

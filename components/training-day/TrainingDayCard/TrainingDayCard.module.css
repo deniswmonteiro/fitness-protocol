@@ -9,6 +9,18 @@
     box-shadow: 0 2px 2px 0 rgba(34, 34, 34, .1), 0 4px 4px 0 rgba(34, 34, 34, .2);
 }
 
+.dayConcluded {
+    position: absolute;
+    background-color: var(--color-green-2);
+    border-radius: .375rem;
+    font-size: .625rem;
+    top: -.625rem;
+    right: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 0.125rem .25rem;
+}
+
 .cardContent {
     display: flex;
     justify-content: space-between;

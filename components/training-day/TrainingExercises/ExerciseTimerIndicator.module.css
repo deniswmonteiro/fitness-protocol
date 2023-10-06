@@ -53,7 +53,7 @@
 .exerciseFinished {
     display: flex;
     background-color: var(--color-green-2);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     padding: 1.69678125rem 1rem;
     width: 100%;
     border-radius: .375rem;
