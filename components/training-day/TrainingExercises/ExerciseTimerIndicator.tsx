@@ -25,6 +25,7 @@ const ExerciseTimerIndicator = ({ id, qtyExercises, pause, serieListDone, setSer
     const [serieStarted, setSerieStarted] = React.useState(0);
     const [exerciseFinished, setExerciseFinished] = React.useState(false);
     const [calendarDay, setCalendarDay] = React.useState("");
+    const [week, setWeek] = React.useState("");
     const [concludedDay, setConcludedDay] = React.useState("");
     const router = useRouter();
 
@@ -99,16 +100,20 @@ const ExerciseTimerIndicator = ({ id, qtyExercises, pause, serieListDone, setSer
                 }
             });
             
+            // SALVAR O ID DO EXERCÍCIO PARA OBTER NA LISTAGEM DA SEMANA
             if (ExercisesConcluded.length === qtyExercises) {
                 setWithExpiry("Calendar", calendarDay, getLastDayOfTheWeekInMilliseconds());
-                setWithExpiry("ConcludedDay", concludedDay, getHoursInMilliseconds(24));
+                setWithExpiry("ConcludedDay", { week, day: concludedDay }, getHoursInMilliseconds(24));
             }
         }
-    }, [id, calendarDay, qtyExercises, concludedDay]);
+    }, [id, calendarDay, qtyExercises, week, concludedDay]);
 
     React.useEffect(() => {
         /** Save day done in local storage expiring at the end of the week */
-        if (router.query.diaId) setConcludedDay(getAbbrDayName(router.query.diaId[1]));
+        if (router.query.diaId) {
+            setWeek(router.query.diaId[0]);
+            setConcludedDay(getAbbrDayName(router.query.diaId[1]));
+        }
 
         const day = getDay(new Date().getDay());
         setCalendarDay(day);

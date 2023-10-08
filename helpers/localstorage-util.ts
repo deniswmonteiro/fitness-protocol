@@ -4,12 +4,14 @@ type ISeriesList = {
 }
 
 type IStorageExerciseData = {
-    data: [ISeriesList] | string,
+    data: [ISeriesList] | string | { week: string, day: string },
     expiry: number
 }
 
+type IValue = ISeriesList[] | string | { week: string, day: string }
+
 /** Save done series in local storage expiring in one day */
-export const setWithExpiry = (key: string, value: ISeriesList[] | string, ttl: number) => {
+export const setWithExpiry = (key: string, value: IValue, ttl: number) => {
     const now = new Date();
     const item = {
         data: value,
@@ -26,7 +28,6 @@ export const getWithExpiry = (key: string) => {
     // If the item doesn't exist, return null
     if (!itemStr) return null;
 
-    
     const item = JSON.parse(itemStr) as IStorageExerciseData;
     const now = new Date();
 

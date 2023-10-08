@@ -14,13 +14,20 @@ type ITrainingDay = {
 
 const TrainingDayCard = ({ plan, week, day }: ITrainingDay) => {
     const [dayDone, setDayDone] = React.useState("");
+    const [weekDone, setWeekDone] = React.useState("");
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
         /** Get day done from local storage */
-        const calendarData = getWithExpiry("ConcludedDay") as string;
+        const concludedDay = getWithExpiry("ConcludedDay") as {
+            week: string,
+            day: string
+        };
 
-        if (calendarData !== null) setDayDone(calendarData);
+        if (concludedDay !== null) {
+            setWeekDone(concludedDay.week);
+            setDayDone(concludedDay.day);
+        }
     }, []);
 
     return (
@@ -28,7 +35,7 @@ const TrainingDayCard = ({ plan, week, day }: ITrainingDay) => {
             <Link href={`/plano/${plan}/${week}/${day.toLowerCase()}`}
                 onClick={() => setLoading(true)}>
                 <Card className={styles.card}>
-                    {getFullDayName(dayDone) === day &&
+                    {week === weekDone && getFullDayName(dayDone) === day &&
                         <p className={styles.dayConcluded}>Concluído</p>
                     }
 
