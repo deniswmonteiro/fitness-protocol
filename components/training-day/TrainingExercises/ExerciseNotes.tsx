@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./ExerciseNotes.module.css";
 import ExerciseNotesModal from "./ExerciseNotesModal/ExerciseNotesModal";
+import styles from "./ExerciseNotes.module.css";
 
 const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: string }) => {
     const [exerciseNotes, setExerciseNotes] = React.useState(() => {

@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import ProgressBarComponent from "../ui/ProgressBarComponent";
 import InputComponent from "../forms/InputComponent";
 import ButtonComponent from "../forms/ButtonComponent";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import styles from "./RegisterAccount.module.css";
 
 const RegisterAccount = () => {

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useNotification } from "@/store/NotificationContext";
 import InputComponent from "../forms/InputComponent";
 import ButtonComponent from "../forms/ButtonComponent";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import styles from "./Login.module.css";
 
 const Login = () => {

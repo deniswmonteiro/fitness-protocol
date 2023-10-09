@@ -1,6 +1,6 @@
 import React from "react";
 import { useNotification } from "@/store/NotificationContext";
-import { Alert } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 import styles from "./Notification.module.css";
 
 const Notification = ({ message, status }: { message: string, status: string }) => {

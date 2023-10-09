@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
-import { Modal } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 import styles from "./LogoutModal.module.css";
 

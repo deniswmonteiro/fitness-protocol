@@ -3,7 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Header from "../layout/Header";
 import TrainingExercises from "./TrainingExercises/TrainingExercises";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import styles from "./TrainingDay.module.css";
 
 type ITrainingDay = {

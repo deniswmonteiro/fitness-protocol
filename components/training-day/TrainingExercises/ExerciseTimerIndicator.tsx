@@ -100,7 +100,6 @@ const ExerciseTimerIndicator = ({ id, qtyExercises, pause, serieListDone, setSer
                 }
             });
             
-            // SALVAR O ID DO EXERCÍCIO PARA OBTER NA LISTAGEM DA SEMANA
             if (ExercisesConcluded.length === qtyExercises) {
                 setWithExpiry("Calendar", calendarDay, getLastDayOfTheWeekInMilliseconds());
                 setWithExpiry("ConcludedDay", { week, day: concludedDay }, getHoursInMilliseconds(24));
