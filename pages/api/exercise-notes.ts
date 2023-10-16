@@ -17,7 +17,14 @@ type IExercisesGetData = {
 }
 
 type IUser = WithId<Document> & {
-    id: number
+    _id: object,
+    id: number,
+    name: string,
+    gender: string,
+    weight: number,
+    height: number,
+    email: string,
+    password: string
 }
 
 type IExercisesGet = WithId<Document>[] & [IExercisesGetData]

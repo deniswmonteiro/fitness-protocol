@@ -1,13 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/helpers/db-util";
-import { WithId } from "mongodb";
 
 type ResponseData = {
     message?: string,
-    weeks?: IWeeks,
+    weeks?: string[],
 }
-
-type IWeeks = WithId<Document>[] & string[]
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -17,7 +14,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             const connect = await dbConnect();
             const db = connect.db();
 
-            const weeks = await db.collection(`${plan}`).distinct("week") as IWeeks;
+            const planWeeks: string[] = await db.collection(`${plan}`).distinct("week");
+            const weeks = planWeeks.map((week) => Number(week.split(" ")[1]))
+                .sort((a, b) => a - b)
+                .map((item) => `Semana ${item}`);
 
             res.status(201).json({
                 weeks

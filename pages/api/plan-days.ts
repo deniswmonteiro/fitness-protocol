@@ -1,14 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/helpers/db-util";
-import { WithId } from "mongodb";
 import { orderWeekDaysArr } from "@/helpers/calendar-util";
 
 type ResponseData = {
     message?: string,
-    days?: IDays,
+    days?: string[],
 }
-
-type IDays = WithId<Document>[] & string[]
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -18,8 +15,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             const connect = await dbConnect();
             const db = connect.db();
 
-            const planDays = await db.collection(`${plan}`).distinct("day") as IDays;
-            const days = orderWeekDaysArr(planDays) as IDays;
+            const planDays: string[] = await db.collection(`${plan}`).distinct("day");
+            const days: string[] = orderWeekDaysArr(planDays);
 
             res.status(201).json({
                 days
