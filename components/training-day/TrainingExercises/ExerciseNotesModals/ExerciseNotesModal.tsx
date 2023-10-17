@@ -10,10 +10,11 @@ type IExerciseNotesModal = {
     exerciseNotes: string,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
     showExerciseNotesModal: boolean,
-    handleCloseExerciseNotesModal: () => void
+    handleCloseExerciseNotesModal: () => void,
+    handleShowExerciseNotesDeleteModal: () => void
 }
 
-const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal }: IExerciseNotesModal) => {
+const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2, initial: exerciseNotes });
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
@@ -29,7 +30,7 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
     }
 
     /** Submit form with exercise notes */
-    const handleExerciseNotesFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    const handleCreateExerciseNotesFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
 
         if (notes.validate()) {
@@ -74,6 +75,12 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
         }
     }
 
+    /** Hide Exercise Notes create/update modal and show Exercise Notes delete modal */
+    const handleExerciseNotesDeleteModalTransition = () => {
+        handleCloseExerciseNotesModal();
+        handleShowExerciseNotesDeleteModal();
+    }
+
     return (
         <Modal show={showExerciseNotesModal} onHide={() => hideExerciseNotesModal(false)}>
             <Modal.Header closeButton>
@@ -82,7 +89,7 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form onSubmit={handleExerciseNotesFormSubmit}>
+                <form onSubmit={handleCreateExerciseNotesFormSubmit} className="mb-4">
                     <div>
                         <p>
                             Adicione suas anotações sobre o exercício.
@@ -102,11 +109,18 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
                             </ButtonComponent>
                         ) : (
                             <ButtonComponent type="submit" style="success">
-                                Salvar
+                                {exerciseNotes === "" ? "Salvar" : "Atualizar"}
                             </ButtonComponent>
                         )
                     }
                 </form>
+
+                {exerciseNotes !== "" && 
+                    <ButtonComponent type="button" style="danger"
+                        onClick={handleExerciseNotesDeleteModalTransition}>
+                        Excluir
+                    </ButtonComponent>
+                }
             </Modal.Body>
         </Modal>
     )

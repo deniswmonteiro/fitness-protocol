@@ -5,7 +5,7 @@ type IButtonComponent = {
     children: React.ReactNode,
     type: "button" | "submit",
     textType?: "text-success" | "text-danger"
-    style: "success" | "text",
+    style: "success" | "danger" | "text",
     disabled?: boolean,
     onClick?: () => void
 }
@@ -16,6 +16,10 @@ const ButtonComponent = ({ children, type, style, textType, ...props }: IButtonC
     switch (style) {
         case "success":
             buttonClass = styles.success;
+            break;
+
+        case "danger":
+            buttonClass = styles.danger;
             break;
 
         case "text":

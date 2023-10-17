@@ -46,6 +46,28 @@
     box-shadow: none;
 }
 
+.danger {
+    background-color: var(--color-red-2);
+    border-color: var(--color-red-2);
+    transition: .3s;
+}
+
+.danger:hover,
+.danger:focus-visible,
+.danger:active {
+    box-shadow: 0 0 0 3px var(--color-red-1), 0 0 0 4px var(--color-red-2);
+    background-color: var(--color-red-2) !important;
+    border-color: var(--color-red-2) !important;
+    transition: .3s;
+}
+
+.danger:disabled {
+    cursor: wait;
+    background-color: var(--color-red-2);
+    border-color: var(--color-red-2);
+    box-shadow: none;
+}
+
 .textSuccess {
     color: var(--color-green-2) !important;
     padding: .375rem .5rem;

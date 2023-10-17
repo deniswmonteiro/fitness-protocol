@@ -209,6 +209,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             }
         }
     }
+
+    if (req.method === "delete") {
+        
+    }
 }
 
 export default handler

@@ -25,7 +25,7 @@ const ProfileModal = ({ user, showProfileModal, handleCloseProfileModal, handleS
     const [loading, setLoading] = React.useState(false);
 
     /** Hide Profile modal and show Logout modal */
-    function handleProfileLogoutModalTransition() {
+    const handleProfileLogoutModalTransition = () => {
         handleCloseProfileModal();
         handleShowLogoutModal();
     }
