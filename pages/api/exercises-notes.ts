@@ -5,15 +5,20 @@ import { WithId } from "mongodb";
 type ResponseData = {
     message?: string,
     notes?: string | null,
-    exerciseNotesData?: IExercisesGetData[]
+    exerciseNotesData?: IExercisesNotesData[]
 }
 
-type IExercisesGetData = {
-    exerciseId: number,
+type IExercisesNotesData = {
+    exerciseId: string,
+    exerciseName: string,
+    exerciseTechniqueOne: string,
+    exerciseTechniqueTwo: string,
+    exerciseTechniqueThree: string,
+    exerciseTechniqueFour: string,
     notes: string
 }
 
-type IUser = WithId<Document> & {
+type IUser = null | WithId<Document> & {
     _id: object,
     id: number,
     name: string,
@@ -24,7 +29,7 @@ type IUser = WithId<Document> & {
     password: string
 }
 
-type IExercisesGet = WithId<Document>[] & [IExercisesGetData]
+type IExercisesNotes = null | WithId<Document>[] & [IExercisesNotesData]
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -44,17 +49,31 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
             }
 
             else {
-                const exercises = await db.collection("exercise-notes").find({ userId: user.id }).toArray() as IExercisesGet;
-                const exerciseNotesData = exercises.map((exercise: IExercisesGetData) => {
-                    return {
-                        exerciseId: exercise.exerciseId,
-                        notes: exercise.notes
-                    }
-                });
+                const exercises = await db.collection("exercise-notes").find({ userId: user.id }).toArray() as IExercisesNotes;
 
-                res.status(201).json({
-                    exerciseNotesData
-                });
+                if (exercises === null) {
+                    res.status(404).json({
+                        message: "Exercício não encontrado."
+                    });
+                }
+
+                else {
+                    const exerciseNotesData = exercises.map((exercise: IExercisesNotesData) => {
+                        return {
+                            exerciseId: exercise.exerciseId,
+                            exerciseName: exercise.exerciseName,
+                            exerciseTechniqueOne: exercise.exerciseTechniqueOne,
+                            exerciseTechniqueTwo: exercise.exerciseTechniqueTwo,
+                            exerciseTechniqueThree: exercise.exerciseTechniqueThree,
+                            exerciseTechniqueFour: exercise.exerciseTechniqueFour,
+                            notes: exercise.notes
+                        }
+                    });
+    
+                    res.status(201).json({
+                        exerciseNotesData
+                    });
+                }
             }
         }
 

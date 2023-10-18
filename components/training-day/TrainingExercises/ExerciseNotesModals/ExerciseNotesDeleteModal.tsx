@@ -8,10 +8,9 @@ type IExerciseNotesDeleteModal = {
     showExerciseNotesDeleteModal: boolean,
     handleCloseExerciseNotesDeleteModal:  () => void,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
-    setExerciseNotesDeleted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ExerciseNotesDeleteModal = ({ exerciseId, showExerciseNotesDeleteModal, handleCloseExerciseNotesDeleteModal, setExerciseNotes, setExerciseNotesDeleted }: IExerciseNotesDeleteModal) => {
+const ExerciseNotesDeleteModal = ({ exerciseId, showExerciseNotesDeleteModal, handleCloseExerciseNotesDeleteModal, setExerciseNotes }: IExerciseNotesDeleteModal) => {
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
 
@@ -36,7 +35,6 @@ const ExerciseNotesDeleteModal = ({ exerciseId, showExerciseNotesDeleteModal, ha
             handleCloseExerciseNotesDeleteModal();
             setLoading(false);
             setExerciseNotes("");
-            setExerciseNotesDeleted(true);
 
             showNotification({
                 message: result.message,

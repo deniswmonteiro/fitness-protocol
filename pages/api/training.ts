@@ -35,7 +35,7 @@ type IExercisesData = {
     notes: string
 }
 
-type ITraining = WithId<Document>[] & [IExercisesData]
+type ITraining = null | WithId<Document>[] & [IExercisesData]
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -56,38 +56,46 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     { day: exerciseDay }
                 ]}).toArray() as ITraining;
 
-            const trainingData = training.map((item: IExercisesData) => {
-                return {
-                    exerciseId: item.exerciseId,
-                    name: item.name,
-                    series: item.series,
-                    "reps-1": item["reps-1"],
-                    "reps-2": item["reps-2"],
-                    "reps-3": item["reps-3"],
-                    "reps-4": item["reps-4"],
-                    pause: item.pause,
-                    "technique-1": item["technique-1"],
-                    "description-1": item["description-1"],
-                    "technique-2": item["technique-2"],
-                    "description-2": item["description-2"],
-                    "technique-3": item["technique-3"],
-                    "description-3": item["description-3"],
-                    "technique-4": item["technique-4"],
-                    "description-4": item["description-4"],
-                    "grouping": item["grouping"],
-                    weight: item.weight,
-                    notes: item.notes
-                }
-            });
-
-            const data = {
-                title: `Treino de ${getDayName(day)}`,
-                exercises: trainingData
+            if (training === null) {
+                res.status(404).json({
+                    message: "Treino não encontrado."
+                });
             }
 
-            res.status(200).json({
-                data
-            });
+            else {
+                const trainingData = training.map((item: IExercisesData) => {
+                    return {
+                        exerciseId: item.exerciseId,
+                        name: item.name,
+                        series: item.series,
+                        "reps-1": item["reps-1"],
+                        "reps-2": item["reps-2"],
+                        "reps-3": item["reps-3"],
+                        "reps-4": item["reps-4"],
+                        pause: item.pause,
+                        "technique-1": item["technique-1"],
+                        "description-1": item["description-1"],
+                        "technique-2": item["technique-2"],
+                        "description-2": item["description-2"],
+                        "technique-3": item["technique-3"],
+                        "description-3": item["description-3"],
+                        "technique-4": item["technique-4"],
+                        "description-4": item["description-4"],
+                        "grouping": item["grouping"],
+                        weight: item.weight,
+                        notes: item.notes
+                    }
+                });
+    
+                const data = {
+                    title: `Treino de ${getDayName(day)}`,
+                    exercises: trainingData
+                }
+    
+                res.status(200).json({
+                    data
+                });
+            }
         }
 
         catch (error) {

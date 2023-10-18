@@ -21,7 +21,7 @@ type IUserData = {
     password: string
 }
 
-type IUser = WithId<Document> & {
+type IUser = null | WithId<Document> & {
     name: string,
     gender: "male" | "female",
     weight: number,

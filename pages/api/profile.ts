@@ -17,7 +17,7 @@ type ResponseData = {
     user?: IUserProps | null
 }
 
-type IUser = WithId<Document> & {
+type IUser = null | WithId<Document> & {
     name: string,
     email: string,
     gender: "male" | "female",

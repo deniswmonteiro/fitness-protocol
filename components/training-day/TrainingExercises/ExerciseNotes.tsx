@@ -1,11 +1,11 @@
 import React from "react";
-import ExerciseNotesModal from "./ExerciseNotesModals/ExerciseNotesModal";
+import ExerciseNotesCreateModal from "./ExerciseNotesModals/ExerciseNotesCreateModal";
+import ExerciseNotesEditModal from "./ExerciseNotesModals/ExerciseNotesEditModal";
 import ExerciseNotesDeleteModal from "./ExerciseNotesModals/ExerciseNotesDeleteModal";
 import styles from "./ExerciseNotes.module.css";
 
 const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: string }) => {
     const [exerciseNotes, setExerciseNotes] = React.useState(() => notes !== "null" ? notes : "");
-    const [exerciseNotesDeleted, setExerciseNotesDeleted] = React.useState(false);
 
     /** Modal state */
     const [showExerciseNotesModal, setShowExerciseNotesModal] = React.useState(false);
@@ -34,21 +34,28 @@ const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: strin
                 )
             }
 
-            {/* Exercise Notes create/update modal */}
-            <ExerciseNotesModal exerciseId={exerciseId}
-                exerciseNotes={exerciseNotes}
-                setExerciseNotes={setExerciseNotes}
-                showExerciseNotesModal={showExerciseNotesModal}
-                handleCloseExerciseNotesModal={handleCloseExerciseNotesModal}
-                handleShowExerciseNotesDeleteModal={handleShowExerciseNotesDeleteModal}
-                exerciseNotesDeleted={exerciseNotesDeleted} />
+            {/* Exercise Notes create/edit modal */}
+            {exerciseNotes === "" ?
+                (
+                    <ExerciseNotesCreateModal exerciseId={exerciseId}
+                        setExerciseNotes={setExerciseNotes}
+                        showExerciseNotesModal={showExerciseNotesModal}
+                        handleCloseExerciseNotesModal={handleCloseExerciseNotesModal} />
+                ) : (
+                    <ExerciseNotesEditModal exerciseId={exerciseId}
+                        exerciseNotes={exerciseNotes}
+                        setExerciseNotes={setExerciseNotes}
+                        showExerciseNotesModal={showExerciseNotesModal}
+                        handleCloseExerciseNotesModal={handleCloseExerciseNotesModal}
+                        handleShowExerciseNotesDeleteModal={handleShowExerciseNotesDeleteModal} />
+                )
+            }
 
             {/* Exercise Notes delete modal */}
             <ExerciseNotesDeleteModal exerciseId={exerciseId}
                 showExerciseNotesDeleteModal={showExerciseNotesDeleteModal}
                 handleCloseExerciseNotesDeleteModal={handleCloseExerciseNotesDeleteModal}
-                setExerciseNotes={setExerciseNotes}
-                setExerciseNotesDeleted={setExerciseNotesDeleted} />
+                setExerciseNotes={setExerciseNotes} />
         </>
     )
 }

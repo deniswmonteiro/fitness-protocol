@@ -8,15 +8,9 @@ import { WithId } from "mongodb";
 type ResponseData = {
     message?: string,
     notes?: string | null,
-    exerciseNotesData?: IExercisesGetData[]
 }
 
-type IExercisesGetData = {
-    exerciseId: number,
-    notes: string
-}
-
-type IUser = WithId<Document> & {
+type IUser = null | WithId<Document> & {
     _id: object,
     id: number,
     name: string,
@@ -36,13 +30,37 @@ type ISession = {
     expires: string
 }
 
-type IExerciseData = {
-    exerciseId: number,
-    userId: number,
+type IExercisesData = null | WithId<Document> & {
+    _id: object,
+    exerciseId: string,
+    name: string,
+    series: number,
+    "reps-1": number,
+    "reps-2": number,
+    "reps-3": number,
+    "reps-4": number,
+    pause: number,
+    "technique-1": string,
+    "description-1": string,
+    "technique-2": string,
+    "description-2": string,
+    "technique-3": string,
+    "description-3": string,
+    "technique-4": string,
+    "description-4": string,
+    "grouping": string,
+    weight: number,
     notes: string
 }
 
-type IExercise = null | WithId<Document> & IExerciseData;
+type IExerciseNotesData = {
+    exerciseId: number,
+    userId: number,
+    plan: string,
+    notes: string
+}
+
+type IExercise = null | WithId<Document> & IExerciseNotesData;
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "POST") {
@@ -55,7 +73,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { exerciseId, notes } = req.body as IExerciseData;
+            const { exerciseId, plan, notes }: IExerciseNotesData = req.body;
 
             // Validation
             const isValidExerciseNotes = notes ? validate({ type: "exerciseNotes", min: 2, value: notes }) : false;
@@ -84,18 +102,35 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     }
 
                     else {
-                        await db.collection("exercise-notes").insertOne({
-                            exerciseId,
-                            userId: user.id,
-                            notes
-                        });
+                        const exercise = await db.collection(`${plan}`).findOne({ exerciseId }) as IExercisesData;
 
-                        res.status(201).json({
-                            message: "Anotação adicionada com sucesso.",
-                            notes
-                        });
+                        if (exercise === null)  {
+                            res.status(404).json({
+                                message: "Exercício não encontrado."
+                            });
+    
+                            connect.close();
+                        }
 
-                        connect.close();
+                        else {
+                            await db.collection("exercise-notes").insertOne({
+                                exerciseId,
+                                userId: user.id,
+                                exerciseName: exercise.name,
+                                exerciseTechniqueOne: exercise["technique-1"],
+                                exerciseTechniqueTwo: exercise["technique-2"],
+                                exerciseTechniqueThree: exercise["technique-3"],
+                                exerciseTechniqueFour: exercise["technique-4"],
+                                notes
+                            });
+
+                            res.status(201).json({
+                                message: "Anotação adicionada com sucesso.",
+                                notes
+                            });
+
+                            connect.close();
+                        }
                     }
                 }
 
@@ -118,7 +153,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { exerciseId, notes } = req.body as IExerciseData;
+            const { exerciseId, notes } = req.body as IExerciseNotesData;
 
             // Validation
             const isValidExerciseNotes = notes ? validate({ type: "exerciseNotes", min: 2, value: notes }) : false;

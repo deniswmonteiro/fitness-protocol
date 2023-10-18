@@ -1,39 +1,30 @@
 import React from "react";
 import useForm from "@/hooks/useForm";
 import { useNotification } from "@/store/NotificationContext";
+import { useRouter } from "next/router";
 import { Modal, Spinner } from "react-bootstrap";
 import TextAreaComponent from "@/components/forms/TextAreaComponent";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
 type IExerciseNotesModal = {
     exerciseId: string,
-    exerciseNotes: string,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
     showExerciseNotesModal: boolean,
     handleCloseExerciseNotesModal: () => void,
-    handleShowExerciseNotesDeleteModal: () => void,
-    exerciseNotesDeleted: boolean
 }
 
-const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal, exerciseNotesDeleted }: IExerciseNotesModal) => {
-    const notes = useForm({ type: "exerciseNotes", min: 2, initial: exerciseNotes });
+const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal }: IExerciseNotesModal) => {
+    const notes = useForm({ type: "exerciseNotes", min: 2 });
+    const [plan, setPlan] = React.useState<string>("");
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
-
-    React.useEffect(() => {
-        /** Reset modal if notes were deleted */
-        if (exerciseNotes === "" && exerciseNotesDeleted) {
-            notes.setValue("");
-            notes.setMessage(null);
-            notes.setValid(null);
-        }
-    }, [exerciseNotes, exerciseNotesDeleted, notes]);
+    const router = useRouter();
     
     /** Close modal and reset form */
     const hideExerciseNotesModal = (saved: boolean) => {
         handleCloseExerciseNotesModal();
 
-        if (!saved && exerciseNotes === "") notes.setValue("");
+        if (!saved) notes.setValue("");
         
         notes.setMessage(null);
         notes.setValid(null);
@@ -44,28 +35,28 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
         event.preventDefault();
 
         if (notes.validate()) {
-            setLoading(true);
+            // setLoading(true);
 
-            const method = exerciseNotes === "" ? "POST" : "PATCH";
             const response = await fetch("/api/exercise-notes", {
-                method,
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     exerciseId,
+                    plan,
                     notes: notes.value
                 })
             });
 
-            const result = await response.json() as {
+            const result: {
                 message: string,
                 notes: string
-            };
+            } = await response.json();
 
             if (response.ok) { 
                 hideExerciseNotesModal(true);
-                setLoading(false);
+                // setLoading(false);
                 setExerciseNotes(result.notes);
 
                 showNotification({
@@ -75,7 +66,7 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
             }
 
             else {
-                setLoading(false);
+                // setLoading(false);
 
                 showNotification({
                     message: result.message,
@@ -85,17 +76,15 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
         }
     }
 
-    /** Hide Exercise Notes create/update modal and show Exercise Notes delete modal */
-    const handleExerciseNotesDeleteModalTransition = () => {
-        handleCloseExerciseNotesModal();
-        handleShowExerciseNotesDeleteModal();
-    }
+    React.useEffect(() => {
+        if (router.query.planoId) setPlan(router.query.planoId as string);
+    }, [router]);
 
     return (
         <Modal show={showExerciseNotesModal} onHide={() => hideExerciseNotesModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    {exerciseNotes === "" ? "Adicionar" : "Editar"} Anotações
+                    Adicionar Anotações
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -119,21 +108,14 @@ const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showE
                             </ButtonComponent>
                         ) : (
                             <ButtonComponent type="submit" style="success">
-                                {exerciseNotes === "" ? "Salvar" : "Atualizar"}
+                                Salvar
                             </ButtonComponent>
                         )
                     }
                 </form>
-
-                {exerciseNotes !== "" && 
-                    <ButtonComponent type="button" style="danger"
-                        onClick={handleExerciseNotesDeleteModalTransition}>
-                        Excluir
-                    </ButtonComponent>
-                }
             </Modal.Body>
         </Modal>
     )
 }
 
-export default ExerciseNotesModal
+export default ExerciseNotesCreateModal

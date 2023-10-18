@@ -16,11 +16,11 @@ type IExercisesGetData = {
     weight: number
 }
 
-type IUser = WithId<Document> & {
+type IUser = null | WithId<Document> & {
     id: number
 }
 
-type IExercisesGet = WithId<Document>[] & [IExercisesGetData]
+type IExercisesGet = null | WithId<Document>[] & [IExercisesGetData]
 
 type ISession = {
     user: {
@@ -37,7 +37,7 @@ type IExerciseData = {
     weight: string
 }
 
-type IExercise = WithId<Document> & IExerciseData;
+type IExercise = null | WithId<Document> & IExerciseData;
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
@@ -58,16 +58,25 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
             else {
                 const exercises = await db.collection("exercise-weight").find({ userId: user.id }).toArray() as IExercisesGet;
-                const exerciseWeightData = exercises.map((exercise: IExercisesGetData) => {
-                    return {
-                        exerciseId: exercise.exerciseId,
-                        weight: exercise.weight
-                    }
-                });
-                
-                res.status(201).json({
-                    exerciseWeightData
-                });
+
+                if (exercises === null) {
+                    res.status(404).json({
+                        message: "Exercício não encontrado."
+                    });
+                }
+
+                else {
+                    const exerciseWeightData = exercises.map((exercise: IExercisesGetData) => {
+                        return {
+                            exerciseId: exercise.exerciseId,
+                            weight: exercise.weight
+                        }
+                    });
+                    
+                    res.status(201).json({
+                        exerciseWeightData
+                    });
+                }
             }
         }
     

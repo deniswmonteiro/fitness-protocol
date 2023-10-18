@@ -41,6 +41,16 @@ type IExercisesData = {
     notes: string
 }
 
+type IExercisesNotesData = {
+    exerciseId: string,
+    exerciseName: string,
+    exerciseTechniqueOne: string,
+    exerciseTechniqueTwo: string,
+    exerciseTechniqueThree: string,
+    exerciseTechniqueFour: string,
+    notes: string
+}
+
 const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrainingDay) => {
     const [trainingData, setTrainingData] = React.useState<IData | null>(null);
     const [plan, setPlan] = React.useState("");
@@ -53,21 +63,18 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
         if (session && session.user) {
             // Getting exercises weight to training
             const reqExerciseWeight = await fetch(`/api/exercise-weight/?email=${session.user.email}`);
-            const resExerciseWeight = await reqExerciseWeight.json() as {
+            const resExerciseWeight: {
                 exerciseWeightData: {
                     exerciseId: string,
                     weight: number,
                 }[]
-            };
+            } = await reqExerciseWeight.json();
 
             // Getting exercises notes to training
             const reqExerciseNotes = await fetch(`/api/exercises-notes/?email=${session.user.email}`);
-            const resExerciseNotes = await reqExerciseNotes.json() as {
-                exerciseNotesData: {
-                    exerciseId: string,
-                    notes: string,
-                }[]
-            };
+            const resExerciseNotes: {
+                exerciseNotesData: IExercisesNotesData[]
+            } = await reqExerciseNotes.json();
 
             if (training) {
                 // Adding exercise weight to training
@@ -82,7 +89,11 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
                 // Adding exercise notes to training
                 Object.entries(training.exercises).map((exercise) => {
                     resExerciseNotes.exerciseNotesData.map((data) => {
-                        if (exercise[1].exerciseId === data.exerciseId) {
+                        if (exercise[1].name === data.exerciseName &&
+                            exercise[1]["technique-1"] === data.exerciseTechniqueOne &&
+                            exercise[1]["technique-2"] === data.exerciseTechniqueTwo &&
+                            exercise[1]["technique-3"] === data.exerciseTechniqueThree &&
+                            exercise[1]["technique-4"] === data.exerciseTechniqueFour) {
                             exercise[1].notes = data.notes;
                         }
                     });
