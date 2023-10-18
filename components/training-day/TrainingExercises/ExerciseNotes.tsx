@@ -5,12 +5,12 @@ import styles from "./ExerciseNotes.module.css";
 
 const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: string }) => {
     const [exerciseNotes, setExerciseNotes] = React.useState(() => notes !== "null" ? notes : "");
+    const [exerciseNotesDeleted, setExerciseNotesDeleted] = React.useState(false);
 
     /** Modal state */
     const [showExerciseNotesModal, setShowExerciseNotesModal] = React.useState(false);
     const [showExerciseNotesDeleteModal, setShowExerciseNotesDeleteModal] = React.useState(false);
 
-    /**  Exercise Notes create/update modal */
     const handleShowExerciseNotesModal = () => setShowExerciseNotesModal(true);
     const handleCloseExerciseNotesModal = () => setShowExerciseNotesModal(false);
 
@@ -40,12 +40,15 @@ const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: strin
                 setExerciseNotes={setExerciseNotes}
                 showExerciseNotesModal={showExerciseNotesModal}
                 handleCloseExerciseNotesModal={handleCloseExerciseNotesModal}
-                handleShowExerciseNotesDeleteModal={handleShowExerciseNotesDeleteModal} />
+                handleShowExerciseNotesDeleteModal={handleShowExerciseNotesDeleteModal}
+                exerciseNotesDeleted={exerciseNotesDeleted} />
 
             {/* Exercise Notes delete modal */}
             <ExerciseNotesDeleteModal exerciseId={exerciseId}
                 showExerciseNotesDeleteModal={showExerciseNotesDeleteModal}
-                handleCloseExerciseNotesDeleteModal={handleCloseExerciseNotesDeleteModal} />
+                handleCloseExerciseNotesDeleteModal={handleCloseExerciseNotesDeleteModal}
+                setExerciseNotes={setExerciseNotes}
+                setExerciseNotesDeleted={setExerciseNotesDeleted} />
         </>
     )
 }

@@ -11,16 +11,26 @@ type IExerciseNotesModal = {
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
     showExerciseNotesModal: boolean,
     handleCloseExerciseNotesModal: () => void,
-    handleShowExerciseNotesDeleteModal: () => void
+    handleShowExerciseNotesDeleteModal: () => void,
+    exerciseNotesDeleted: boolean
 }
 
-const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
+const ExerciseNotesModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal, exerciseNotesDeleted }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2, initial: exerciseNotes });
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
 
-     /** Close modal and reset form */
-     const hideExerciseNotesModal = (saved: boolean) => {
+    React.useEffect(() => {
+        /** Reset modal if notes were deleted */
+        if (exerciseNotes === "" && exerciseNotesDeleted) {
+            notes.setValue("");
+            notes.setMessage(null);
+            notes.setValid(null);
+        }
+    }, [exerciseNotes, exerciseNotesDeleted, notes]);
+    
+    /** Close modal and reset form */
+    const hideExerciseNotesModal = (saved: boolean) => {
         handleCloseExerciseNotesModal();
 
         if (!saved && exerciseNotes === "") notes.setValue("");

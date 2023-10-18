@@ -27,8 +27,6 @@ type IUser = WithId<Document> & {
     password: string
 }
 
-type IExercisesGet = WithId<Document>[] & [IExercisesGetData]
-
 type ISession = {
     user: {
         name: string,
@@ -44,47 +42,9 @@ type IExerciseData = {
     notes: string
 }
 
-type IExercise = WithId<Document> & IExerciseData;
+type IExercise = null | WithId<Document> & IExerciseData;
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-    if (req.method === "GET") {
-        const email = req.query.email as string;
-
-        try {
-            const connect = await dbConnect();
-            const db = connect.db();
-            const user = await db.collection("users").findOne({ email}) as IUser;
-
-            if (!user) {
-                res.status(422).json({
-                    message: "Usuário não encontrado.",
-                });
-
-                connect.close();
-            }
-
-            else {
-                const exercises = await db.collection("exercise-notes").find({ userId: user.id }).toArray() as IExercisesGet;
-                const exerciseNotesData = exercises.map((exercise: IExercisesGetData) => {
-                    return {
-                        exerciseId: exercise.exerciseId,
-                        notes: exercise.notes
-                    }
-                });
-
-                res.status(201).json({
-                    exerciseNotesData
-                });
-            }
-        }
-
-        catch (error) {
-            res.status(500).json({
-                message: "Erro de conexão com o banco de dados."
-            });
-        }
-    }
-
     if (req.method === "POST") {
         const session: ISession | null = await getServerSession(req, res, authOptions);
 
@@ -131,7 +91,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                         });
 
                         res.status(201).json({
-                            message: "Anotações adicionadas com sucesso.",
+                            message: "Anotação adicionada com sucesso.",
                             notes
                         });
 
@@ -193,7 +153,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                         });
 
                         res.status(200).json({
-                            message: "Anotações atualizadas com sucesso.",
+                            message: "Anotação atualizada com sucesso.",
                             notes
                         });
 
@@ -210,8 +170,74 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
     }
 
-    if (req.method === "delete") {
-        
+    if (req.method === "DELETE") {
+        const session: ISession | null = await getServerSession(req, res, authOptions);
+
+        if (!session) {
+            res.status(401).json({
+                message: "Usuário não autenticado."
+            });
+        }
+
+        else {
+            const exerciseId: string = req.body.exerciseId;
+
+            try {
+                const connect = await dbConnect();
+                const db = connect.db();
+
+                const email = session.user.email;
+                const users = db.collection("users");
+                const user = await users.findOne({ email }) as IUser;
+
+                if (!user) {
+                    res.status(404).json({
+                        message: "Usuário não encontrado."
+                    });
+
+                    connect.close();
+                }
+
+                else {
+                    const exercisesNotes = db.collection("exercise-notes");
+                    const exerciseNotes = await exercisesNotes.findOne({ exerciseId }) as IExercise;
+
+                    if (!exerciseNotes) {
+                        res.status(404).json({
+                            message: "Anotação não encontrada."
+                        });
+
+                        connect.close();
+                    }
+
+                    else {
+                        if (exerciseNotes.userId !== user.id) {
+                            res.status(401).json({
+                                message: "Usuário não autorizado."
+                            });
+
+                            connect.close();
+                        }
+
+                        else {
+                            await exercisesNotes.deleteOne({ exerciseId });
+                        
+                            res.status(201).json({
+                                message: "Anotação excluída com sucesso.",
+                            });
+
+                            connect.close();
+                        }
+                    }
+                }
+            }
+
+            catch (error) {
+                res.status(500).json({
+                    message: "Erro de conexão com o servidor."
+                });
+            }
+        }
     }
 }
 
