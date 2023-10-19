@@ -9,7 +9,7 @@ type ResponseData = {
 }
 
 type IExercisesNotesData = {
-    exerciseId: string,
+    id: number,
     exerciseName: string,
     exerciseTechniqueOne: string,
     exerciseTechniqueTwo: string,
@@ -60,7 +60,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                 else {
                     const exerciseNotesData = exercises.map((exercise: IExercisesNotesData) => {
                         return {
-                            exerciseId: exercise.exerciseId,
+                            id: exercise.id,
                             exerciseName: exercise.exerciseName,
                             exerciseTechniqueOne: exercise.exerciseTechniqueOne,
                             exerciseTechniqueTwo: exercise.exerciseTechniqueTwo,

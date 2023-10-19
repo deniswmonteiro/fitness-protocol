@@ -38,11 +38,12 @@ type IExercisesData = {
     "description-4": string,
     "grouping": string,
     weight: number,
+    notesId?: number,
     notes: string
 }
 
 type IExercisesNotesData = {
-    exerciseId: string,
+    id: number,
     exerciseName: string,
     exerciseTechniqueOne: string,
     exerciseTechniqueTwo: string,
@@ -94,6 +95,7 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
                             exercise[1]["technique-2"] === data.exerciseTechniqueTwo &&
                             exercise[1]["technique-3"] === data.exerciseTechniqueThree &&
                             exercise[1]["technique-4"] === data.exerciseTechniqueFour) {
+                            exercise[1].notesId = data.id;
                             exercise[1].notes = data.notes;
                         }
                     });

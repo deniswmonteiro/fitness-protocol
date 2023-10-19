@@ -4,7 +4,13 @@ import ExerciseNotesEditModal from "./ExerciseNotesModals/ExerciseNotesEditModal
 import ExerciseNotesDeleteModal from "./ExerciseNotesModals/ExerciseNotesDeleteModal";
 import styles from "./ExerciseNotes.module.css";
 
-const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: string }) => {
+type IExerciseNotes = {
+    exerciseId: string,
+    notesId?: number,
+    notes: string
+}
+
+const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
     const [exerciseNotes, setExerciseNotes] = React.useState(() => notes !== "null" ? notes : "");
 
     /** Modal state */
@@ -42,7 +48,7 @@ const ExerciseNotes = ({ exerciseId, notes }: { exerciseId: string, notes: strin
                         showExerciseNotesModal={showExerciseNotesModal}
                         handleCloseExerciseNotesModal={handleCloseExerciseNotesModal} />
                 ) : (
-                    <ExerciseNotesEditModal exerciseId={exerciseId}
+                    <ExerciseNotesEditModal notesId={notesId}
                         exerciseNotes={exerciseNotes}
                         setExerciseNotes={setExerciseNotes}
                         showExerciseNotesModal={showExerciseNotesModal}

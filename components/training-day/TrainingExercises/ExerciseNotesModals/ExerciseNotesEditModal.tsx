@@ -6,7 +6,7 @@ import TextAreaComponent from "@/components/forms/TextAreaComponent";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
 type IExerciseNotesModal = {
-    exerciseId: string,
+    notesId?: number,
     exerciseNotes: string,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
     showExerciseNotesModal: boolean,
@@ -14,7 +14,7 @@ type IExerciseNotesModal = {
     handleShowExerciseNotesDeleteModal: () => void
 }
 
-const ExerciseNotesEditModal = ({ exerciseId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
+const ExerciseNotesEditModal = ({ notesId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2, initial: exerciseNotes });
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
@@ -42,7 +42,7 @@ const ExerciseNotesEditModal = ({ exerciseId, exerciseNotes, setExerciseNotes, s
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    exerciseId,
+                    notesId,
                     notes: notes.value
                 })
             });

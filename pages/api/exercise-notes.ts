@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
 import { validate } from "@/helpers/form-validate";
-import { dbConnect } from "@/helpers/db-util";
+import { dbConnect, getId } from "@/helpers/db-util";
 import { WithId } from "mongodb";
 
 type ResponseData = {
@@ -55,6 +55,7 @@ type IExercisesData = null | WithId<Document> & {
 
 type IExerciseNotesData = {
     exerciseId: number,
+    notesId: number,
     userId: number,
     plan: string,
     notes: string
@@ -113,8 +114,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                         }
 
                         else {
+                            const sequenceId = await getId("exercise-notes", db);
+
                             await db.collection("exercise-notes").insertOne({
-                                exerciseId,
+                                id: sequenceId,
                                 userId: user.id,
                                 exerciseName: exercise.name,
                                 exerciseTechniqueOne: exercise["technique-1"],
@@ -153,7 +156,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { exerciseId, notes } = req.body as IExerciseNotesData;
+            const { notesId, notes }: IExerciseNotesData = req.body;
 
             // Validation
             const isValidExerciseNotes = notes ? validate({ type: "exerciseNotes", min: 2, value: notes }) : false;
@@ -170,7 +173,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     const db = connect.db();
 
                     const exercises = db.collection("exercise-notes");
-                    const exercise = await exercises.findOne({ exerciseId }) as IExercise;
+                    const exercise = await exercises.findOne({ id: notesId }) as IExercise;
 
                     if (!exercise) {
                         res.status(404).json({
@@ -181,7 +184,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     }
 
                     else {
-                        await exercises.updateOne({ exerciseId }, {
+                        await exercises.updateOne({ id: notesId }, {
                             $set: {
                                 notes
                             }

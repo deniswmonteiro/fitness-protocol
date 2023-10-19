@@ -32,6 +32,7 @@ type IExercisesData = {
     "description-4": string,
     "grouping": string,
     weight: number,
+    notesId?: number,
     notes: string
 }
 
@@ -124,7 +125,9 @@ const TrainingExercises = ({ training }: { training: IData }) => {
                                 </div>
                                 <div className={styles.exerciseFooter}>
                                     <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
-                                    <ExerciseNotes exerciseId={exercise[1].exerciseId} notes={exercise[1].notes} />
+                                    <ExerciseNotes exerciseId={exercise[1].exerciseId}
+                                        notesId={exercise[1].notesId}
+                                        notes={exercise[1].notes} />
                                 </div>
                             </Carousel.Caption>
                         </Carousel.Item>
