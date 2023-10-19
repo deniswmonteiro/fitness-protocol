@@ -12,6 +12,7 @@ type IExerciseNotes = {
 
 const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
     const [exerciseNotes, setExerciseNotes] = React.useState(() => notes !== "null" ? notes : "");
+    const [exerciseNotesId, setExerciseNotesId] = React.useState(() => notesId !== undefined ? notesId : null);
 
     /** Modal state */
     const [showExerciseNotesModal, setShowExerciseNotesModal] = React.useState(false);
@@ -45,12 +46,14 @@ const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
                 (
                     <ExerciseNotesCreateModal exerciseId={exerciseId}
                         setExerciseNotes={setExerciseNotes}
+                        setExerciseNotesId={setExerciseNotesId}
                         showExerciseNotesModal={showExerciseNotesModal}
                         handleCloseExerciseNotesModal={handleCloseExerciseNotesModal} />
                 ) : (
-                    <ExerciseNotesEditModal notesId={notesId}
-                        exerciseNotes={exerciseNotes}
+                    <ExerciseNotesEditModal exerciseNotesId={exerciseNotesId}
+                        setExerciseNotesId={setExerciseNotesId}
                         setExerciseNotes={setExerciseNotes}
+                        exerciseNotes={exerciseNotes}
                         showExerciseNotesModal={showExerciseNotesModal}
                         handleCloseExerciseNotesModal={handleCloseExerciseNotesModal}
                         handleShowExerciseNotesDeleteModal={handleShowExerciseNotesDeleteModal} />
@@ -58,7 +61,8 @@ const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
             }
 
             {/* Exercise Notes delete modal */}
-            <ExerciseNotesDeleteModal exerciseId={exerciseId}
+            <ExerciseNotesDeleteModal exerciseNotesId={exerciseNotesId}
+                setExerciseNotesId={setExerciseNotesId}
                 showExerciseNotesDeleteModal={showExerciseNotesDeleteModal}
                 handleCloseExerciseNotesDeleteModal={handleCloseExerciseNotesDeleteModal}
                 setExerciseNotes={setExerciseNotes} />

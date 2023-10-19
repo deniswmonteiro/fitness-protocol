@@ -6,7 +6,8 @@ import TextAreaComponent from "@/components/forms/TextAreaComponent";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
 type IExerciseNotesModal = {
-    notesId?: number,
+    exerciseNotesId: number | null,
+    setExerciseNotesId: React.Dispatch<React.SetStateAction<number | null>>,
     exerciseNotes: string,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
     showExerciseNotesModal: boolean,
@@ -14,7 +15,7 @@ type IExerciseNotesModal = {
     handleShowExerciseNotesDeleteModal: () => void
 }
 
-const ExerciseNotesEditModal = ({ notesId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
+const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2, initial: exerciseNotes });
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
@@ -42,19 +43,21 @@ const ExerciseNotesEditModal = ({ notesId, exerciseNotes, setExerciseNotes, show
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    notesId,
+                    notesId: exerciseNotesId,
                     notes: notes.value
                 })
             });
 
             const result: {
                 message: string,
+                notesId: number | null,
                 notes: string
             } = await response.json();
 
             if (response.ok) { 
                 hideExerciseNotesModal(true);
                 setLoading(false);
+                setExerciseNotesId(result.notesId);
                 setExerciseNotes(result.notes);
 
                 showNotification({
@@ -64,6 +67,7 @@ const ExerciseNotesEditModal = ({ notesId, exerciseNotes, setExerciseNotes, show
             }
 
             else {
+                hideExerciseNotesModal(true);
                 setLoading(false);
 
                 showNotification({

@@ -30,7 +30,7 @@ type IUser = null | WithId<Document> & {
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method === "GET") {
-        const email = req.query.email;
+        const email = req.query.email as string;
 
         try {
             const connect = await dbConnect();
@@ -67,7 +67,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
     }
     
     if (req.method === "POST") {
-        const { name, gender, weight, height, email, password } = req.body as IUserData;
+        const { name, gender, weight, height, email, password }: IUserData = req.body;
 
         // Validation
         const isValidName = name ? validate({ type: "name", value: name, min: 2 }) : false;
@@ -104,7 +104,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     const userWeight = Number(weight.replace(",", "."));
                     const userHeight = Number(height);
                     const encryptedPassword = await hashPassword(password);
-                    const sequenceId = await getId("user", db);
+                    const sequenceId: number = await getId("user", db);
                     
                     await db.collection("users").insertOne({
                         id: sequenceId,

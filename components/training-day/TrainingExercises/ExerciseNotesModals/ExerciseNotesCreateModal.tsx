@@ -8,12 +8,13 @@ import ButtonComponent from "@/components/forms/ButtonComponent";
 
 type IExerciseNotesModal = {
     exerciseId: string,
+    setExerciseNotesId: React.Dispatch<React.SetStateAction<number | null>>,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
     showExerciseNotesModal: boolean,
     handleCloseExerciseNotesModal: () => void,
 }
 
-const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal }: IExerciseNotesModal) => {
+const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2 });
     const [plan, setPlan] = React.useState<string>("");
     const [loading, setLoading] = React.useState(false);
@@ -35,7 +36,7 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotes, showExerciseNo
         event.preventDefault();
 
         if (notes.validate()) {
-            // setLoading(true);
+            setLoading(true);
 
             const response = await fetch("/api/exercise-notes", {
                 method: "POST",
@@ -51,12 +52,14 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotes, showExerciseNo
 
             const result: {
                 message: string,
+                notesId: number,
                 notes: string
             } = await response.json();
 
             if (response.ok) { 
                 hideExerciseNotesModal(true);
-                // setLoading(false);
+                setLoading(false);
+                setExerciseNotesId(result.notesId);
                 setExerciseNotes(result.notes);
 
                 showNotification({
@@ -66,7 +69,8 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotes, showExerciseNo
             }
 
             else {
-                // setLoading(false);
+                hideExerciseNotesModal(true);
+                setLoading(false);
 
                 showNotification({
                     message: result.message,

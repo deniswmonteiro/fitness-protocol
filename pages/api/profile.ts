@@ -85,7 +85,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { name, gender, weight, height } = req.body as IUserProps;
+            const { name, gender, weight, height }: IUserProps = req.body;
 
             // Validation
             const isValidName = name ? validate({ type: "name", value: name, min: 2 }) : false;

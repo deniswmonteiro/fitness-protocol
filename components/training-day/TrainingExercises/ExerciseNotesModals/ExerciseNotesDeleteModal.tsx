@@ -4,13 +4,14 @@ import { Modal, Spinner } from "react-bootstrap";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
 type IExerciseNotesDeleteModal = {
-    exerciseId: string,
+    exerciseNotesId: number | null,
+    setExerciseNotesId: React.Dispatch<React.SetStateAction<number | null>>,
     showExerciseNotesDeleteModal: boolean,
-    handleCloseExerciseNotesDeleteModal:  () => void,
+    handleCloseExerciseNotesDeleteModal: () => void,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
 }
 
-const ExerciseNotesDeleteModal = ({ exerciseId, showExerciseNotesDeleteModal, handleCloseExerciseNotesDeleteModal, setExerciseNotes }: IExerciseNotesDeleteModal) => {
+const ExerciseNotesDeleteModal = ({ exerciseNotesId, setExerciseNotesId, showExerciseNotesDeleteModal, handleCloseExerciseNotesDeleteModal, setExerciseNotes }: IExerciseNotesDeleteModal) => {
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
 
@@ -25,16 +26,21 @@ const ExerciseNotesDeleteModal = ({ exerciseId, showExerciseNotesDeleteModal, ha
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                exerciseId,
+                notesId: exerciseNotesId,
             })
         });
 
-        const result: { message: string } = await response.json();
+        const result: { 
+            message: string,
+            notesId: number | null,
+            notes: string
+         } = await response.json();
 
         if (response.ok) { 
             handleCloseExerciseNotesDeleteModal();
             setLoading(false);
-            setExerciseNotes("");
+            setExerciseNotesId(result.notesId);
+            setExerciseNotes(result.notes);
 
             showNotification({
                 message: result.message,
@@ -43,6 +49,7 @@ const ExerciseNotesDeleteModal = ({ exerciseId, showExerciseNotesDeleteModal, ha
         }
 
         else {
+            handleCloseExerciseNotesDeleteModal();
             setLoading(false);
 
             showNotification({

@@ -7,6 +7,7 @@ import { WithId } from "mongodb";
 
 type ResponseData = {
     message?: string,
+    notesId?: number | null,
     notes?: string | null,
 }
 
@@ -54,10 +55,20 @@ type IExercisesData = null | WithId<Document> & {
 }
 
 type IExerciseNotesData = {
+    id: number,
+    exerciseName: string,
+    exerciseTechniqueOne: string,
+    exerciseTechniqueTwo: string,
+    exerciseTechniqueThree: string,
+    exerciseTechniqueFour: string,
+    notes: string,
+    userId: number
+}
+
+type IExerciseNotesProps = {
     exerciseId: number,
-    notesId: number,
-    userId: number,
     plan: string,
+    notesId: number,
     notes: string
 }
 
@@ -74,7 +85,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { exerciseId, plan, notes }: IExerciseNotesData = req.body;
+            const { exerciseId, plan, notes }: IExerciseNotesProps = req.body;
 
             // Validation
             const isValidExerciseNotes = notes ? validate({ type: "exerciseNotes", min: 2, value: notes }) : false;
@@ -114,7 +125,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                         }
 
                         else {
-                            const sequenceId = await getId("exercise-notes", db);
+                            const sequenceId: number = await getId("exercise-notes", db);
 
                             await db.collection("exercise-notes").insertOne({
                                 id: sequenceId,
@@ -129,6 +140,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
                             res.status(201).json({
                                 message: "Anotação adicionada com sucesso.",
+                                notesId: sequenceId,
                                 notes
                             });
 
@@ -156,7 +168,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { notesId, notes }: IExerciseNotesData = req.body;
+            const { notesId, notes }: IExerciseNotesProps = req.body;
 
             // Validation
             const isValidExerciseNotes = notes ? validate({ type: "exerciseNotes", min: 2, value: notes }) : false;
@@ -172,10 +184,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     const connect = await dbConnect();
                     const db = connect.db();
 
-                    const exercises = db.collection("exercise-notes");
-                    const exercise = await exercises.findOne({ id: notesId }) as IExercise;
+                    const exercisesNotes = db.collection("exercise-notes");
+                    const exerciseNotes = await exercisesNotes.findOne({ id: notesId }) as IExercise;
 
-                    if (!exercise) {
+                    if (!exerciseNotes) {
                         res.status(404).json({
                             message: "Exercício não encontrado."
                         });
@@ -184,7 +196,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     }
 
                     else {
-                        await exercises.updateOne({ id: notesId }, {
+                        await exercisesNotes.updateOne({ id: notesId }, {
                             $set: {
                                 notes
                             }
@@ -192,6 +204,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
                         res.status(200).json({
                             message: "Anotação atualizada com sucesso.",
+                            notesId: exerciseNotes.id,
                             notes
                         });
 
@@ -218,7 +231,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const exerciseId: string = req.body.exerciseId;
+            const notesId: number = req.body.notesId;
 
             try {
                 const connect = await dbConnect();
@@ -238,7 +251,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
                 else {
                     const exercisesNotes = db.collection("exercise-notes");
-                    const exerciseNotes = await exercisesNotes.findOne({ exerciseId }) as IExercise;
+                    const exerciseNotes = await exercisesNotes.findOne({ id: notesId }) as IExercise;
 
                     if (!exerciseNotes) {
                         res.status(404).json({
@@ -258,10 +271,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                         }
 
                         else {
-                            await exercisesNotes.deleteOne({ exerciseId });
+                            await exercisesNotes.deleteOne({ id: notesId });
                         
                             res.status(201).json({
                                 message: "Anotação excluída com sucesso.",
+                                notesId: null,
+                                notes: "",
                             });
 
                             connect.close();

@@ -97,7 +97,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { exerciseId, weight } = req.body as IExerciseData;
+            const { exerciseId, weight }: IExerciseData = req.body;
 
             // Validation
             const isValidExerciseWeight = weight ? validate({ type: "exerciseWeight", value: weight }) : false;
@@ -162,7 +162,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         }
 
         else {
-            const { exerciseId, weight } = req.body as IExerciseData;
+            const { exerciseId, weight }: IExerciseData = req.body;
 
             // Validation
             const isValidExerciseWeight = weight ? validate({ type: "exerciseWeight", value: weight }) : false;
