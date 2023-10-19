@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import ArrowLeftIcon from "../icons/arrow-left-icon";
 import { Spinner } from "react-bootstrap";
+import ArrowLeftIcon from "../icons/arrow-left-icon";
 import styles from "./Header.module.css";
 
 type IHeader = {

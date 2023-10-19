@@ -59,9 +59,7 @@ const Profile = ({ user }: { user: IUserData | null }) => {
             })
         });
 
-        const result = await response.json() as {
-            message: string
-        };
+        const result: { message: string } = await response.json();
 
         if (response.ok) {
             router.replace("/");

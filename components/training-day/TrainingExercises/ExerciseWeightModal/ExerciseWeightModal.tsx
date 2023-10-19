@@ -47,10 +47,10 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
                 })
             });
 
-            const result = await response.json() as {
+            const result: {
                 message: string,
                 weight: string
-            };
+            } = await response.json();
 
             if (response.ok) { 
                 hideExerciseWeightModal(true);

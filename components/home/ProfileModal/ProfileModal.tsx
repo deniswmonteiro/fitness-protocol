@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Modal, Spinner } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import { Card, Modal, Spinner } from "react-bootstrap";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 import PencilIcon from "../../icons/pencil-icon";
 import PersonIcon from "../../icons/person-icon";

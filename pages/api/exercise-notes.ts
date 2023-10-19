@@ -125,7 +125,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                         }
 
                         else {
-                            const sequenceId: number = await getId("exercise-notes", db);
+                            const sequenceId = await getId("exercise-notes", db);
 
                             await db.collection("exercise-notes").insertOne({
                                 id: sequenceId,

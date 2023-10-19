@@ -10,20 +10,20 @@ type IExerciseNotesModal = {
     exerciseId: string,
     setExerciseNotesId: React.Dispatch<React.SetStateAction<number | null>>,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
-    showExerciseNotesModal: boolean,
-    handleCloseExerciseNotesModal: () => void,
+    showExerciseNotesCreateModal: boolean,
+    handleCloseExerciseNotesCreateModal: () => void,
 }
 
-const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal }: IExerciseNotesModal) => {
+const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseNotes, showExerciseNotesCreateModal, handleCloseExerciseNotesCreateModal }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2 });
-    const [plan, setPlan] = React.useState<string>("");
+    const [plan, setPlan] = React.useState("");
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
     const router = useRouter();
     
     /** Close modal and reset form */
     const hideExerciseNotesModal = (saved: boolean) => {
-        handleCloseExerciseNotesModal();
+        handleCloseExerciseNotesCreateModal();
 
         if (!saved) notes.setValue("");
         
@@ -85,7 +85,7 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseN
     }, [router]);
 
     return (
-        <Modal show={showExerciseNotesModal} onHide={() => hideExerciseNotesModal(false)}>
+        <Modal show={showExerciseNotesCreateModal} onHide={() => hideExerciseNotesModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     Adicionar Anotações

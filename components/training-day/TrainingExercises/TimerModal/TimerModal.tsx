@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import StopwatchIcon from "@/components/icons/stopwatch-icon";
 import Timer from "@/components/ui/Timer";
 import ButtonComponent from "@/components/forms/ButtonComponent";
+import StopwatchIcon from "@/components/icons/stopwatch-icon";
 import styles from "./TimerModal.module.css";
 
 type ITimerModal = {

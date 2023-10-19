@@ -54,9 +54,7 @@ const RegisterAccount = () => {
                 body: JSON.stringify(userData)
             });
 
-            const result = await response.json() as {
-                message: string
-            };
+            const result: { message: string } = await response.json();
 
             if (response.ok) {
                 const login = await signIn("credentials", {

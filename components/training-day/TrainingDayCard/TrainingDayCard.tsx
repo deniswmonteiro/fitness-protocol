@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { getWithExpiry } from "@/helpers/localstorage-util";
-import { Card, Spinner } from "react-bootstrap";
 import { getFullDayName } from "@/helpers/calendar-util";
+import { Card, Spinner } from "react-bootstrap";
 import PlayIcon from "@/components/icons/play-icon";
 import styles from "./TrainingDayCard.module.css";
 

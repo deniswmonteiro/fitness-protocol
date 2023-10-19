@@ -15,11 +15,17 @@ const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
     const [exerciseNotesId, setExerciseNotesId] = React.useState(() => notesId !== undefined ? notesId : null);
 
     /** Modal state */
-    const [showExerciseNotesModal, setShowExerciseNotesModal] = React.useState(false);
+    const [showExerciseNotesCreateModal, setShowExerciseNotesCreateModal] = React.useState(false);
+    const [showExerciseNotesEditModal, setShowExerciseNotesEditModal] = React.useState(false);
     const [showExerciseNotesDeleteModal, setShowExerciseNotesDeleteModal] = React.useState(false);
 
-    const handleShowExerciseNotesModal = () => setShowExerciseNotesModal(true);
-    const handleCloseExerciseNotesModal = () => setShowExerciseNotesModal(false);
+    /** Exercise Notes create modal */
+    const handleShowExerciseNotesCreateModal = () => setShowExerciseNotesCreateModal(true);
+    const handleCloseExerciseNotesCreateModal = () => setShowExerciseNotesCreateModal(false);
+
+    /** Exercise Notes edit modal */
+    const handleShowExerciseNotesEditModal = () => setShowExerciseNotesEditModal(true);
+    const handleCloseExerciseNotesEditModal = () => setShowExerciseNotesEditModal(false);
 
     /** Exercise Notes delete modal */
     const handleShowExerciseNotesDeleteModal = () => setShowExerciseNotesDeleteModal(true);
@@ -30,12 +36,12 @@ const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
             {exerciseNotes === "" ? 
                 (
                     <button className={styles.exerciseNotesButton}
-                        onClick={handleShowExerciseNotesModal}>
+                        onClick={handleShowExerciseNotesCreateModal}>
                         Anotações
                     </button>
                 ) : (
                     <button className={styles.exerciseNotesButton}
-                        onClick={handleShowExerciseNotesModal}>
+                        onClick={handleShowExerciseNotesEditModal}>
                         Ver Anotações
                     </button>
                 )
@@ -47,15 +53,15 @@ const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
                     <ExerciseNotesCreateModal exerciseId={exerciseId}
                         setExerciseNotes={setExerciseNotes}
                         setExerciseNotesId={setExerciseNotesId}
-                        showExerciseNotesModal={showExerciseNotesModal}
-                        handleCloseExerciseNotesModal={handleCloseExerciseNotesModal} />
+                        showExerciseNotesCreateModal={showExerciseNotesCreateModal}
+                        handleCloseExerciseNotesCreateModal={handleCloseExerciseNotesCreateModal} />
                 ) : (
                     <ExerciseNotesEditModal exerciseNotesId={exerciseNotesId}
                         setExerciseNotesId={setExerciseNotesId}
                         setExerciseNotes={setExerciseNotes}
                         exerciseNotes={exerciseNotes}
-                        showExerciseNotesModal={showExerciseNotesModal}
-                        handleCloseExerciseNotesModal={handleCloseExerciseNotesModal}
+                        showExerciseNotesEditModal={showExerciseNotesEditModal}
+                        handleCloseExerciseNotesEditModal={handleCloseExerciseNotesEditModal}
                         handleShowExerciseNotesDeleteModal={handleShowExerciseNotesDeleteModal} />
                 )
             }

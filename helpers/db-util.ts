@@ -1,13 +1,18 @@
-import { MongoClient } from "mongodb";
+import { Db, MongoClient, WithId } from "mongodb";
+
+type ISequence = WithId<Document> & {
+    description: string,
+    value: number
+};
 
 export async function dbConnect() {
     return await MongoClient.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.cwxr3dv.mongodb.net/${process.env.DB_NAME}`);
 }
 
-export async function getId(description: string, db: any) {
+export async function getId(description: string, db: Db) {
     const sequenceCollection = db.collection("sequence");
-    const sequence = await sequenceCollection.findOne({ description });
-    let newSequence;
+    const sequence = await sequenceCollection.findOne({ description }) as ISequence;
+    let newSequence: number;
 
     if (!sequence) {
         await sequenceCollection.insertOne({
@@ -26,7 +31,7 @@ export async function getId(description: string, db: any) {
         });
     }
 
-    newSequence = await sequenceCollection.findOne({ description });
-
-    return newSequence.value;
+    newSequence = sequence.value ;
+    
+    return newSequence;
 }

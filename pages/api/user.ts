@@ -104,7 +104,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) 
                     const userWeight = Number(weight.replace(",", "."));
                     const userHeight = Number(height);
                     const encryptedPassword = await hashPassword(password);
-                    const sequenceId: number = await getId("user", db);
+                    const sequenceId = await getId("user", db);
                     
                     await db.collection("users").insertOne({
                         id: sequenceId,

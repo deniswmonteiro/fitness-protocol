@@ -10,19 +10,19 @@ type IExerciseNotesModal = {
     setExerciseNotesId: React.Dispatch<React.SetStateAction<number | null>>,
     exerciseNotes: string,
     setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
-    showExerciseNotesModal: boolean,
-    handleCloseExerciseNotesModal: () => void,
+    showExerciseNotesEditModal: boolean,
+    handleCloseExerciseNotesEditModal: () => void,
     handleShowExerciseNotesDeleteModal: () => void
 }
 
-const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseNotes, setExerciseNotes, showExerciseNotesModal, handleCloseExerciseNotesModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
+const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseNotes, setExerciseNotes, showExerciseNotesEditModal, handleCloseExerciseNotesEditModal, handleShowExerciseNotesDeleteModal }: IExerciseNotesModal) => {
     const notes = useForm({ type: "exerciseNotes", min: 2, initial: exerciseNotes });
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
     
     /** Close modal and reset form */
     const hideExerciseNotesModal = (saved: boolean) => {
-        handleCloseExerciseNotesModal();
+        handleCloseExerciseNotesEditModal();
 
         if (!saved && exerciseNotes === "") notes.setValue("");
         
@@ -80,12 +80,12 @@ const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseN
 
     /** Hide Exercise Notes create/update modal and show Exercise Notes delete modal */
     const handleExerciseNotesDeleteModalTransition = () => {
-        handleCloseExerciseNotesModal();
+        handleCloseExerciseNotesEditModal();
         handleShowExerciseNotesDeleteModal();
     }
 
     return (
-        <Modal show={showExerciseNotesModal} onHide={() => hideExerciseNotesModal(false)}>
+        <Modal show={showExerciseNotesEditModal} onHide={() => hideExerciseNotesModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>Editar Anotações</Modal.Title>
             </Modal.Header>

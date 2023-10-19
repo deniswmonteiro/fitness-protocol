@@ -11,7 +11,10 @@ type IExerciseSeriesTimer = {
 
 const ExerciseSeriesTimer = ({ id, qtyExercises, pause, series }: IExerciseSeriesTimer) => {
     const [serieListDone, setSerieListDone] = React.useState(() => {
-        const seriesInfo = [];
+        const seriesInfo: {
+            serie: number,
+            done: boolean
+        }[] = [];
 
         for (let i = 1; i <= series; i++) {
             seriesInfo.push({

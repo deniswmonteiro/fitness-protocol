@@ -38,103 +38,101 @@ type IExercisesData = {
 
 const TrainingExercises = ({ training }: { training: IData }) => {
     return (
-        <>
-            <div className="animeLeft">
-                <Carousel controls={false} interval={null}>
-                    {Object.entries(training.exercises).map((exercise) => (
-                        <Carousel.Item key={exercise[0]}>
-                            {exercise[1]["grouping"] !== "null" && (
-                                <Badge className={styles.exerciseGroupingBadge}>
-                                    {exercise[1]["grouping"]}
-                                </Badge>
-                            )}
+        <div className="animeLeft">
+            <Carousel controls={false} interval={null}>
+                {Object.entries(training.exercises).map((exercise) => (
+                    <Carousel.Item key={exercise[0]}>
+                        {exercise[1]["grouping"] !== "null" && (
+                            <Badge className={styles.exerciseGroupingBadge}>
+                                {exercise[1]["grouping"]}
+                            </Badge>
+                        )}
 
-                            <div className={styles.carouselBg}></div>
+                        <div className={styles.carouselBg}></div>
 
-                            <Carousel.Caption className={styles.carouselContent}>
-                                <div className={styles.exerciseContent}>
-                                    <h2 className="title-2">{exercise[1].name}</h2>
+                        <Carousel.Caption className={styles.carouselContent}>
+                            <div className={styles.exerciseContent}>
+                                <h2 className="title-2">{exercise[1].name}</h2>
 
-                                    <div className={styles.exerciseInfo}>
-                                        <p>
-                                            <span>{exercise[1].series}</span> séries
-                                        </p>
+                                <div className={styles.exerciseInfo}>
+                                    <p>
+                                        <span>{exercise[1].series}</span> séries
+                                    </p>
 
-                                        <ExerciseRepetitions reps1={exercise[1]["reps-1"]}
-                                            reps2={exercise[1]["reps-2"]}
-                                            reps3={exercise[1]["reps-3"]}
-                                            reps4={exercise[1]["reps-4"]}
-                                            technique1={exercise[1]["technique-1"]}
-                                            technique2={exercise[1]["technique-2"]}
-                                            technique3={exercise[1]["technique-3"]}
-                                            technique4={exercise[1]["technique-4"]} />
-                                    </div>
-
-                                    <ExerciseSeriesTimer id={exercise[1].exerciseId}
-                                        qtyExercises={training.exercises.length}
-                                        pause={exercise[1].pause}
-                                        series={exercise[1].series} />
-
-                                    <div className={styles.exerciseDetails}>
-                                        <p>
-                                            Técnica(s):
-                                        </p>
-                                        <ul>
-                                            {exercise[1]["technique-1"] !== "null" &&
-                                                <li>
-                                                    <span>
-                                                        {exercise[1]["technique-1"]}
-                                                    </span>
-
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
-                                                        description={exercise[1]["description-1"]} />
-                                                </li>
-                                            }
-                                            {exercise[1]["technique-2"] !== "null" &&
-                                                <li>
-                                                    <span>
-                                                        {exercise[1]["technique-2"]}
-                                                    </span>
-
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-2"]}
-                                                        description={exercise[1]["description-2"]} />
-                                                </li>
-                                            }
-                                            {exercise[1]["technique-3"] !== "null" &&
-                                                <li>
-                                                    <span>
-                                                        {exercise[1]["technique-3"]}
-                                                    </span>
-
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-3"]}
-                                                        description={exercise[1]["description-3"]} />
-                                                </li>
-                                            }
-                                            {exercise[1]["technique-4"] !== "null" &&
-                                                <li>
-                                                    <span>
-                                                        {exercise[1]["technique-4"]}
-                                                    </span>
-
-                                                    <ShowExerciseTechniquesInfo technique={exercise[1]["technique-4"]}
-                                                        description={exercise[1]["description-4"]} />
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
+                                    <ExerciseRepetitions reps1={exercise[1]["reps-1"]}
+                                        reps2={exercise[1]["reps-2"]}
+                                        reps3={exercise[1]["reps-3"]}
+                                        reps4={exercise[1]["reps-4"]}
+                                        technique1={exercise[1]["technique-1"]}
+                                        technique2={exercise[1]["technique-2"]}
+                                        technique3={exercise[1]["technique-3"]}
+                                        technique4={exercise[1]["technique-4"]} />
                                 </div>
-                                <div className={styles.exerciseFooter}>
-                                    <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
-                                    <ExerciseNotes exerciseId={exercise[1].exerciseId}
-                                        notesId={exercise[1].notesId}
-                                        notes={exercise[1].notes} />
+
+                                <ExerciseSeriesTimer id={exercise[1].exerciseId}
+                                    qtyExercises={training.exercises.length}
+                                    pause={exercise[1].pause}
+                                    series={exercise[1].series} />
+
+                                <div className={styles.exerciseDetails}>
+                                    <p>
+                                        Técnica(s):
+                                    </p>
+                                    <ul>
+                                        {exercise[1]["technique-1"] !== "null" &&
+                                            <li>
+                                                <span>
+                                                    {exercise[1]["technique-1"]}
+                                                </span>
+
+                                                <ShowExerciseTechniquesInfo technique={exercise[1]["technique-1"]}
+                                                    description={exercise[1]["description-1"]} />
+                                            </li>
+                                        }
+                                        {exercise[1]["technique-2"] !== "null" &&
+                                            <li>
+                                                <span>
+                                                    {exercise[1]["technique-2"]}
+                                                </span>
+
+                                                <ShowExerciseTechniquesInfo technique={exercise[1]["technique-2"]}
+                                                    description={exercise[1]["description-2"]} />
+                                            </li>
+                                        }
+                                        {exercise[1]["technique-3"] !== "null" &&
+                                            <li>
+                                                <span>
+                                                    {exercise[1]["technique-3"]}
+                                                </span>
+
+                                                <ShowExerciseTechniquesInfo technique={exercise[1]["technique-3"]}
+                                                    description={exercise[1]["description-3"]} />
+                                            </li>
+                                        }
+                                        {exercise[1]["technique-4"] !== "null" &&
+                                            <li>
+                                                <span>
+                                                    {exercise[1]["technique-4"]}
+                                                </span>
+
+                                                <ShowExerciseTechniquesInfo technique={exercise[1]["technique-4"]}
+                                                    description={exercise[1]["description-4"]} />
+                                            </li>
+                                        }
+                                    </ul>
                                 </div>
-                            </Carousel.Caption>
-                        </Carousel.Item>
-                    ))}
-                </Carousel>
-            </div>
-        </>
+                            </div>
+                            <div className={styles.exerciseFooter}>
+                                <ExerciseWeight exerciseId={exercise[1].exerciseId} weight={exercise[1].weight} />
+                                <ExerciseNotes exerciseId={exercise[1].exerciseId}
+                                    notesId={exercise[1].notesId}
+                                    notes={exercise[1].notes} />
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                ))}
+            </Carousel>
+        </div>
     )
 }
 

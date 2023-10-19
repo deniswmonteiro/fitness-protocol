@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./Timer.module.css";
 
 type ITimer = {
-    handleCloseTimerModal: () => void,
-    pause: number
+    pause: number,
+    handleCloseTimerModal: () => void
 }
 
 const Timer = ({ pause, handleCloseTimerModal }: ITimer ) => {

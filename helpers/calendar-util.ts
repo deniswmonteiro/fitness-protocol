@@ -28,9 +28,8 @@ export const getDates = () => {
     return week;
 }
 
-export const getHoursInMilliseconds = (hour: number) => {
-    return hour * 3600000;
-}
+/** Get hours in milliseconds */
+export const getHoursInMilliseconds = (hour: number) => hour * 3600000;
 
 /** Get the last day of the week in milliseconds */
 export const getLastDayOfTheWeekInMilliseconds = () => {
