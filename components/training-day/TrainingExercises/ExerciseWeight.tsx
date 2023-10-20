@@ -1,5 +1,6 @@
 import React from "react";
-import ExerciseWeightModal from "./ExerciseWeightModal/ExerciseWeightModal";
+import ExerciseWeightEditModal from "./ExerciseWeightModals/ExerciseWeightEditModal";
+import ExerciseWeightCreateModal from "./ExerciseWeightModals/ExerciseWeightCreateModal";
 import styles from "./ExerciseWeight.module.css";
 
 const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: string, weight: number }) => {
@@ -8,34 +9,49 @@ const ExerciseWeight = ({ exerciseId, weight }: { exerciseId: string, weight: nu
     });
 
     /** Modal state */
-    const [showExerciseWeightModal, setShowExerciseWeightModal] = React.useState(false);
+    const [showExerciseWeightCreateModal, setShowExerciseWeightCreateModal] = React.useState(false);
+    const [showExerciseWeightEditModal, setShowExerciseWeightEditModal] = React.useState(false);
 
     /**  Exercise Weight modal */
-    const handleShowExerciseWeightModal = () => setShowExerciseWeightModal(true);
-    const handleCloseExerciseWeightModal = () => setShowExerciseWeightModal(false);
+    const handleShowExerciseWeightCreateModal = () => setShowExerciseWeightCreateModal(true);
+    const handleCloseExerciseWeightCreateModal = () => setShowExerciseWeightCreateModal(false);
+
+    /**  Exercise Weight modal */
+    const handleShowExerciseWeightEditModal = () => setShowExerciseWeightEditModal(true);
+    const handleCloseExerciseWeightEditModal = () => setShowExerciseWeightEditModal(false);
 
     return (
         <>  
             {exerciseWeight === "" ? 
                 (
                     <button className={styles.exerciseWeightButton}
-                        onClick={handleShowExerciseWeightModal}>
+                        onClick={handleShowExerciseWeightCreateModal}>
                         Carga
                     </button>
                 ) : (
                     <button className={styles.exerciseWeightButton}
-                        onClick={handleShowExerciseWeightModal}>
+                        onClick={handleShowExerciseWeightEditModal}>
                         {exerciseWeight} kg
                     </button>
                 )
             }
 
-            {/* Exercise Weight modal */}
-            <ExerciseWeightModal exerciseId={exerciseId}
-                exerciseWeight={exerciseWeight}
-                setExerciseWeight={setExerciseWeight}
-                showExerciseWeightModal={showExerciseWeightModal}
-                handleCloseExerciseWeightModal={handleCloseExerciseWeightModal} />
+            {exerciseWeight === "" ? 
+                (
+                    // Exercise Weight create modal
+                    <ExerciseWeightCreateModal exerciseId={exerciseId}
+                        setExerciseWeight={setExerciseWeight}
+                        showExerciseWeightCreateModal={showExerciseWeightCreateModal}
+                        handleCloseExerciseWeightCreateModal={handleCloseExerciseWeightCreateModal} />
+                ) : (
+                    // Exercise Weight edit modal
+                    <ExerciseWeightEditModal exerciseId={exerciseId}
+                        exerciseWeight={exerciseWeight}
+                        setExerciseWeight={setExerciseWeight}
+                        showExerciseWeightEditModal={showExerciseWeightEditModal}
+                        handleCloseExerciseWeightEditModal={handleCloseExerciseWeightEditModal} />
+                )
+            }
         </>
     )
 }

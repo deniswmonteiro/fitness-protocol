@@ -63,7 +63,7 @@ const TrainingDay = ({ hasPlanError, hasWeekError, hasDayError, training}: ITrai
     const handleExerciseWeight = React.useCallback(async () => {
         if (session && session.user) {
             // Getting exercises weight to training
-            const reqExerciseWeight = await fetch(`/api/exercise-weight/?email=${session.user.email}`);
+            const reqExerciseWeight = await fetch(`/api/exercises-weight/?email=${session.user.email}`);
             const resExerciseWeight: {
                 exerciseWeightData: {
                     exerciseId: string,

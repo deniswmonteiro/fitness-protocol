@@ -3,42 +3,41 @@ import useForm from "@/hooks/useForm";
 import { useNotification } from "@/store/NotificationContext";
 import { useRouter } from "next/router";
 import { Modal, Spinner } from "react-bootstrap";
-import TextAreaComponent from "@/components/forms/TextAreaComponent";
+import InputComponent from "@/components/forms/InputComponent";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
-type IExerciseNotesModal = {
+type IExerciseWeightCreateModal = {
     exerciseId: string,
-    setExerciseNotesId: React.Dispatch<React.SetStateAction<number | null>>,
-    setExerciseNotes: React.Dispatch<React.SetStateAction<string>>,
-    showExerciseNotesCreateModal: boolean,
-    handleCloseExerciseNotesCreateModal: () => void,
+    setExerciseWeight: React.Dispatch<React.SetStateAction<string>>,
+    showExerciseWeightCreateModal: boolean,
+    handleCloseExerciseWeightCreateModal: () => void
 }
 
-const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseNotes, showExerciseNotesCreateModal, handleCloseExerciseNotesCreateModal }: IExerciseNotesModal) => {
-    const notes = useForm({ type: "exerciseNotes", min: 2 });
+const ExerciseWeightCreateModal = ({ exerciseId, setExerciseWeight, showExerciseWeightCreateModal, handleCloseExerciseWeightCreateModal }: IExerciseWeightCreateModal) => {
+    const weight = useForm({ type: "exerciseWeight" });
     const [plan, setPlan] = React.useState("");
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
     const router = useRouter();
-    
-    /** Close modal and reset form */
-    const hideExerciseNotesCreateModal = (saved: boolean) => {
-        handleCloseExerciseNotesCreateModal();
 
-        if (!saved) notes.setValue("");
+    /** Close modal and reset form */
+    const hideExerciseWeightCreateModal = (saved: boolean) => {
+        handleCloseExerciseWeightCreateModal();
+
+        if (!saved) weight.setValue("")
         
-        notes.setMessage(null);
-        notes.setValid(null);
+        weight.setMessage(null);
+        weight.setValid(null);
     }
 
-    /** Submit form with exercise notes */
-    const handleCreateExerciseNotesFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    /** Submit form with exercise weight */
+    const handleExerciseWeightFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
 
-        if (notes.validate()) {
+        if (weight.validate()) {
             setLoading(true);
 
-            const response = await fetch("/api/exercise-notes", {
+            const response = await fetch("/api/exercise-weight", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -46,21 +45,19 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseN
                 body: JSON.stringify({
                     exerciseId,
                     plan,
-                    notes: notes.value
+                    weight: weight.value
                 })
             });
 
             const result: {
                 message: string,
-                notesId: number,
-                notes: string
+                weight: string
             } = await response.json();
 
             if (response.ok) { 
-                hideExerciseNotesCreateModal(true);
+                hideExerciseWeightCreateModal(true);
                 setLoading(false);
-                setExerciseNotesId(result.notesId);
-                setExerciseNotes(result.notes);
+                setExerciseWeight(result.weight);
 
                 showNotification({
                     message: result.message,
@@ -69,9 +66,9 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseN
             }
 
             else {
-                hideExerciseNotesCreateModal(true);
+                hideExerciseWeightCreateModal(true);
                 setLoading(false);
-
+                
                 showNotification({
                     message: result.message,
                     status: "error"
@@ -85,24 +82,22 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseN
     }, [router]);
 
     return (
-        <Modal show={showExerciseNotesCreateModal} onHide={() => hideExerciseNotesCreateModal(false)}>
+        <Modal show={showExerciseWeightCreateModal} onHide={() => hideExerciseWeightCreateModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    Adicionar Anotações
+                    Adicionar Carga
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form onSubmit={handleCreateExerciseNotesFormSubmit} className="mb-4">
-                    <div>
-                        <p>
-                            Adicione suas anotações sobre o exercício.
-                        </p>
-                    </div>
-                    
-                    {/* Exercise Notes */}
-                    <TextAreaComponent rows={5}
-                        id="exercise-notes"
-                        {...notes} />
+                <form onSubmit={handleExerciseWeightFormSubmit}>
+                    {/* Exercise Weight */}
+                    <InputComponent inputGroup={true}
+                        inputGroupText="kg"
+                        label="Carga"
+                        type="text"
+                        id="exercise-weight"
+                        autofocus={true}
+                        {...weight} />
 
                     {loading ? 
                         (
@@ -122,4 +117,4 @@ const ExerciseNotesCreateModal = ({ exerciseId, setExerciseNotesId, setExerciseN
     )
 }
 
-export default ExerciseNotesCreateModal
+export default ExerciseWeightCreateModal

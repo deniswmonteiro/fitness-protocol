@@ -47,15 +47,16 @@ const ExerciseNotes = ({ exerciseId, notesId, notes }: IExerciseNotes) => {
                 )
             }
 
-            {/* Exercise Notes create/edit modal */}
             {exerciseNotes === "" ?
                 (
+                    // Exercise Notes create modal
                     <ExerciseNotesCreateModal exerciseId={exerciseId}
                         setExerciseNotes={setExerciseNotes}
                         setExerciseNotesId={setExerciseNotesId}
                         showExerciseNotesCreateModal={showExerciseNotesCreateModal}
                         handleCloseExerciseNotesCreateModal={handleCloseExerciseNotesCreateModal} />
                 ) : (
+                    // Exercise Notes edit modal
                     <ExerciseNotesEditModal exerciseNotesId={exerciseNotesId}
                         setExerciseNotesId={setExerciseNotesId}
                         setExerciseNotes={setExerciseNotes}

@@ -21,7 +21,7 @@ const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseN
     const { showNotification } = useNotification();
     
     /** Close modal and reset form */
-    const hideExerciseNotesModal = (saved: boolean) => {
+    const hideExerciseNotesEditModal = (saved: boolean) => {
         handleCloseExerciseNotesEditModal();
 
         if (!saved && exerciseNotes === "") notes.setValue("");
@@ -55,7 +55,7 @@ const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseN
             } = await response.json();
 
             if (response.ok) { 
-                hideExerciseNotesModal(true);
+                hideExerciseNotesEditModal(true);
                 setLoading(false);
                 setExerciseNotesId(result.notesId);
                 setExerciseNotes(result.notes);
@@ -67,7 +67,7 @@ const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseN
             }
 
             else {
-                hideExerciseNotesModal(true);
+                hideExerciseNotesEditModal(true);
                 setLoading(false);
 
                 showNotification({
@@ -78,14 +78,14 @@ const ExerciseNotesEditModal = ({ exerciseNotesId, setExerciseNotesId, exerciseN
         }
     }
 
-    /** Hide Exercise Notes create/update modal and show Exercise Notes delete modal */
+    /** Hide Exercise Notes edit modal and show Exercise Notes delete modal */
     const handleExerciseNotesDeleteModalTransition = () => {
         handleCloseExerciseNotesEditModal();
         handleShowExerciseNotesDeleteModal();
     }
 
     return (
-        <Modal show={showExerciseNotesEditModal} onHide={() => hideExerciseNotesModal(false)}>
+        <Modal show={showExerciseNotesEditModal} onHide={() => hideExerciseNotesEditModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>Editar Anotações</Modal.Title>
             </Modal.Header>

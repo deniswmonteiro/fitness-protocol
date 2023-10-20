@@ -5,22 +5,22 @@ import { Modal, Spinner } from "react-bootstrap";
 import InputComponent from "@/components/forms/InputComponent";
 import ButtonComponent from "@/components/forms/ButtonComponent";
 
-type IExerciseWeightModal = {
+type IExerciseWeightEditModal = {
     exerciseId: string,
     exerciseWeight: string,
     setExerciseWeight: React.Dispatch<React.SetStateAction<string>>,
-    showExerciseWeightModal: boolean,
-    handleCloseExerciseWeightModal: () => void
+    showExerciseWeightEditModal: boolean,
+    handleCloseExerciseWeightEditModal: () => void
 }
 
-const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, showExerciseWeightModal, handleCloseExerciseWeightModal }: IExerciseWeightModal) => {
+const ExerciseWeightEditModal = ({ exerciseId, exerciseWeight, setExerciseWeight, showExerciseWeightEditModal, handleCloseExerciseWeightEditModal }: IExerciseWeightEditModal) => {
     const weight = useForm({ type: "exerciseWeight", initial: exerciseWeight });
     const [loading, setLoading] = React.useState(false);
     const { showNotification } = useNotification();
 
     /** Close modal and reset form */
-    const hideExerciseWeightModal = (saved: boolean) => {
-        handleCloseExerciseWeightModal();
+    const hideExerciseWeightEditModal = (saved: boolean) => {
+        handleCloseExerciseWeightEditModal();
 
         if (!saved && exerciseWeight === "") weight.setValue("")
         
@@ -29,15 +29,14 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
     }
 
     /** Submit form with exercise weight */
-    const handleExerciseWeightFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    const handleExerciseWeightEditFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
 
         if (weight.validate()) {
             setLoading(true);
 
-            const method = exerciseWeight === "" ? "POST" : "PATCH";
             const response = await fetch("/api/exercise-weight", {
-                method,
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -53,7 +52,7 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
             } = await response.json();
 
             if (response.ok) { 
-                hideExerciseWeightModal(true);
+                hideExerciseWeightEditModal(true);
                 setLoading(false);
                 setExerciseWeight(result.weight);
 
@@ -64,7 +63,7 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
             }
 
             else {
-                hideExerciseWeightModal(true);
+                hideExerciseWeightEditModal(true);
                 
                 showNotification({
                     message: result.message,
@@ -75,14 +74,14 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
     }
 
     return (
-        <Modal show={showExerciseWeightModal} onHide={() => hideExerciseWeightModal(false)}>
+        <Modal show={showExerciseWeightEditModal} onHide={() => hideExerciseWeightEditModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    {exerciseWeight === "" ? "Adicionar" : "Editar"} Carga
+                    Editar Carga
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form onSubmit={handleExerciseWeightFormSubmit}>
+                <form onSubmit={handleExerciseWeightEditFormSubmit}>
                     {/* Exercise Weight */}
                     <InputComponent inputGroup={true}
                         inputGroupText="kg"
@@ -100,7 +99,7 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
                             </ButtonComponent>
                         ) : (
                             <ButtonComponent type="submit" style="success">
-                                Salvar
+                                Atualizar
                             </ButtonComponent>
                         )
                     }
@@ -110,4 +109,4 @@ const ExerciseWeightModal = ({ exerciseId, exerciseWeight, setExerciseWeight, sh
     )
 }
 
-export default ExerciseWeightModal
+export default ExerciseWeightEditModal
