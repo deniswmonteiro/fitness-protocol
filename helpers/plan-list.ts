@@ -1,5 +1,5 @@
 const trainingPlans = [
-    "Mass Protocol"
+    "Mass Protocol", "Abdomen Boost"
 ];
 
 export default trainingPlans
