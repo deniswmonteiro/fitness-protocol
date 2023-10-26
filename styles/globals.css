@@ -114,7 +114,7 @@ a {
 }
 
 .modal-dialog {
-    margin: 1rem !important;
+    margin: 1rem auto !important;
 }
 
 .modal-content {
